@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tkoba-piecetimes.github.io/rowingmania/sitemap.xml
