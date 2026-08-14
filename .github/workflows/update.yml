@@ -33,6 +33,10 @@ jobs:
         # 過去年度はキャッシュ済みならスキップ、当年度・前年度のみ毎回再取得する
         # （fetch_rowing.py のデフォルト挙動）。新年度の大会が公開されるとここで検知される。
         run: python pipeline/fetch_rowing.py
+      - name: Generate articles (大学の軌跡シリーズ)
+        # 出場レース数10以上の大学を対象に、大学別インカレ全記録まとめ記事を
+        # 1回の実行につき最大2本まで生成する（ストックを日次で少しずつ消化）。
+        run: python pipeline/generate_articles.py
       - name: Generate site
         run: python pipeline/generate_site.py
       - name: Commit updated data & site
@@ -40,7 +44,7 @@ jobs:
         run: |
           git config user.name "rowingmania-bot"
           git config user.email "bot@piecetimes.jp"
-          git add data site
+          git add data content site
           git diff --cached --quiet || git commit -m "chore: auto-update rowing data"
           git push
       - uses: actions/configure-pages@v5
