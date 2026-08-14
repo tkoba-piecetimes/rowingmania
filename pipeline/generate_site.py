@@ -340,7 +340,8 @@ def md_to_html(md):
                 close_blocks()
                 out.append("<ol>")
                 in_ol = True
-            out.append(f"<li>{md_inline(re.sub(r'^\\d+\\.\\s', '', s))}</li>")
+            item = re.sub(r"^\d+\.\s", "", s)
+            out.append(f"<li>{md_inline(item)}</li>")
         else:
             para.append(s)
     flush_para()
