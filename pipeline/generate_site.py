@@ -32,8 +32,8 @@ ASSETS = ROOT / "assets"
 CONTENT = ROOT / "content" / "articles"
 
 SITE_BASE = "https://tkoba-piecetimes.github.io/rowingmania/"
-GA_MEASUREMENT_ID = ""
-GSC_VERIFICATION = ""
+GA_MEASUREMENT_ID = "G-162E02Q55F"  # GA4「ツナカレ部活メディア」共有プロパティ（tkoba-piecetimes.github.io配下で共有）
+GSC_VERIFICATION = "0X77J6-cDQak8VJkyt1PGegqMjZwEI2HWAYjkwl3OF0"  # Search Console所有権確認トークン（アカウント共通）
 SPONSOR_CTA_URL = "https://tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor"
 SITE_NAME = "ローイングマニア"
 
