@@ -44,7 +44,6 @@ LISTING_LP_URL = "https://lp.tunakare.jp/s01/?utm_source=rowingmania&utm_medium=
 MEDIA_PR_CONTACT_URL = "https://media.tunakare.jp/contact/student/?utm_source=rowingmania&utm_medium=referral&utm_campaign=media-pr"
 SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=shukatsu"
 CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
-TUNAKARE_LINKS_PATH = DATA / "tunakare_links.json"  # {university_slug: {"sponsorship_slug","community","title"}}
 
 # 種目コードの表示順（男子7種目→女子6種目。年度により一部種目が存在しないこともある）
 EVENT_ORDER = [
@@ -112,14 +111,6 @@ def load_articles():
         arts.append(a)
     arts.sort(key=lambda a: (a.get("date", ""), a["slug"]), reverse=True)
     return arts
-
-
-def load_tunakare_links():
-    """data/tunakare_links.json（大学slug→ツナカレ協賛案件slugの対応表）を読む。
-    未整備の大学はマッピングなし（=応援ブロックがフォールバック導線を表示）として扱う。"""
-    if not TUNAKARE_LINKS_PATH.exists():
-        return {}
-    return json.loads(TUNAKARE_LINKS_PATH.read_text(encoding="utf-8"))
 
 
 def build_indices(years):
@@ -200,12 +191,6 @@ def univ_link(name, universities, R=""):
     if not u:
         return escape(name)
     return f'<a href="{R}universities/{u["slug"]}/index.html">{escape(name)}</a>'
-
-
-def sponsor_slug_url(slug):
-    """協賛案件の公開詳細ページへの直リンク（D1マッピング基盤・G2解消）。"""
-    return (f"https://tunakare.jp/sponsorship/search/p/{slug}"
-            "?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor")
 
 
 def tunakare_cta(url, label, event, css_class="cta"):
@@ -409,24 +394,17 @@ CTA_DEFS = {
 }
 
 
-def sponsor_target_for_article(a, tunakare_links):
-    """大学の軌跡シリーズ（univ-history-<slug>.md）は該当大学のマッピングがあれば
-    slug直リンクを、無ければ協賛検索トップへのフォールバックを返す。"""
-    slug = a["slug"]
-    if slug.startswith("univ-history-"):
-        link = tunakare_links.get(slug[len("univ-history-"):])
-        if link:
-            return sponsor_slug_url(link["sponsorship_slug"]), link.get("community")
-    return SPONSOR_CTA_URL, None
+def build_article_cta_band(a):
+    """D3: 記事CTA帯。sponsorは全記事共通で協賛検索トップへの汎用導線を表示する
 
-
-def build_article_cta_band(a, tunakare_links):
+    （個別大学への協賛ページ直リンク・団体名表示は行わない。募集中の部活はツナカレに
+    遷移して初めてわかる設計。案件には締切・停止があり静的サイト側に募集状況を持つと
+    管理不能になるため）。
+    """
     cta = (a.get("cta") or "none").strip()
     if cta == "sponsor":
-        url, community = sponsor_target_for_article(a, tunakare_links)
-        label = f'{community}の協賛募集を見る →' if community else '応援できる部活を探す →'
         return ('<section class="article-cta"><h2>この部活・競技を応援したい方へ</h2>'
-                f'<p>{tunakare_cta(url, label, "cv_sponsor_click")}</p>'
+                f'<p>{tunakare_cta(SPONSOR_CTA_URL, "ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click")}</p>'
                 f'<p class="note">{tunakare_cta(SPONSOR_LP02_URL, "法人・企業の方はこちら（協賛のご相談） →", "cv_sponsor_click", "cta-text")}</p>'
                 '</section>')
     if cta in CTA_DEFS:
@@ -436,7 +414,7 @@ def build_article_cta_band(a, tunakare_links):
     return ""
 
 
-def build_articles(articles, meta, tunakare_links):
+def build_articles(articles, meta):
     if not articles:
         return
     rel = "../"
@@ -460,7 +438,7 @@ def build_articles(articles, meta, tunakare_links):
                  f' <span class="note">{escape(a["date"])}</span></p>')
         body += f'<h1>{escape(a["title"])}</h1>'
         body += f'<div class="article">{md_to_html(a["body"])}</div>'
-        body += build_article_cta_band(a, tunakare_links)
+        body += build_article_cta_band(a)
         body += f'<section><h2>あわせて読む</h2><ul>{related}</ul></section>'
         write_page(f"articles/{a['slug']}",
                    page(rel, f'{a["title"]} | {SITE_NAME}', body, meta,
@@ -722,28 +700,27 @@ def build_universities_index(universities, meta):
                                     desc="全日本大学ローイング選手権に出場した大学の一覧。優勝回数・決勝進出回数付き。"))
 
 
-def build_support_block(u, tunakare_links):
-    """D2: チームページ（＝アーカイブ型のためこのリポジトリでは大学ページ）の応援ブロック。
-    マッピング有無で3導線を出し分ける（G2解消: 見ていた部活の協賛ページに直接届かせる）。"""
-    link = tunakare_links.get(u["slug"])
-    lanes = []
-    if link:
-        community = link.get("community") or u["name"]
-        lanes.append(tunakare_cta(
-            sponsor_slug_url(link["sponsorship_slug"]),
-            f"{community}の協賛募集を見る →", "cv_sponsor_click"))
-    else:
-        lanes.append(tunakare_cta(SPONSOR_CTA_URL, "応援できる部活を探す →", "cv_sponsor_click"))
-        lanes.append(tunakare_cta(
+def build_support_block():
+    """D2改訂版: チームページ（＝アーカイブ型のためこのリポジトリでは大学ページ）の応援ブロック。
+    全大学共通の汎用3導線を表示する。
+
+    個別大学への協賛ページ直リンク・団体名表示は行わない（募集中の部活はツナカレに
+    遷移して初めてわかる設計。案件には締切・停止があり静的サイト側に募集状況を持つと
+    管理不能になるため）。
+    """
+    lanes = [
+        tunakare_cta(SPONSOR_CTA_URL, "この部活・競技を応援したい方へ：ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click"),
+        tunakare_cta(
             LISTING_LP_URL, "この部の関係者の方へ：協賛募集を無料で掲載 →",
-            "cv_listing_click", "cta cta-sub"))
-    lanes.append(tunakare_cta(
-        MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub"))
+            "cv_listing_click", "cta cta-sub"),
+        tunakare_cta(
+            MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub"),
+    ]
     lanes_html = "".join(f"<p>{lane}</p>" for lane in lanes)
     return f'<section class="sponsor"><h2>この部を応援する</h2>{lanes_html}</section>'
 
 
-def build_university_page(u, meta, tunakare_links):
+def build_university_page(u, meta):
     rel = "../../"
     name = u["name"]
     body = (f'<p class="breadcrumb"><a href="{rel}index.html">トップ</a> › '
@@ -769,7 +746,7 @@ def build_university_page(u, meta, tunakare_links):
              f'<tbody>{rows}</tbody></table></div>'
              '<p class="note">※「決勝結果」は決勝（A〜D）に進出した場合の着順・タイムです。決勝未進出の種目は到達ラウンドのみ表示しています。</p></section>')
 
-    body += build_support_block(u, tunakare_links)
+    body += build_support_block()
 
     write_page(f"universities/{u['slug']}",
                page(rel, f'{name} 全日本大学ローイング選手権 出場記録 | {SITE_NAME}', body, meta,
@@ -973,7 +950,6 @@ def main():
     if not years:
         raise SystemExit("大会データがありません（fetch_rowing.pyを先に実行）")
     articles = load_articles()
-    tunakare_links = load_tunakare_links()
     events, universities = build_indices(years)
 
     global_meta = {
@@ -1003,8 +979,8 @@ def main():
             build_event_page(code, events[code], universities, global_meta)
     build_universities_index(universities, global_meta)
     for u in universities.values():
-        build_university_page(u, global_meta, tunakare_links)
-    build_articles(articles, global_meta, tunakare_links)
+        build_university_page(u, global_meta)
+    build_articles(articles, global_meta)
     build_dashboard(years, events, universities, global_meta)
     write_sitemap_and_robots()
 
