@@ -244,6 +244,7 @@ def build_article_markdown(u):
         f"date: {date_str}\n"
         f"category: {CATEGORY}\n"
         f"description: {description}\n"
+        "cta: sponsor\n"
         "---\n"
     )
     return frontmatter + body

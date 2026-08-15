@@ -34,8 +34,17 @@ CONTENT = ROOT / "content" / "articles"
 SITE_BASE = "https://rowingmania.jp/"
 GA_MEASUREMENT_ID = "G-2VXCQKLYZ8"  # GA4「ローイングマニア」専用プロパティ（プロパティID 549897625）
 GSC_VERIFICATION = "0X77J6-cDQak8VJkyt1PGegqMjZwEI2HWAYjkwl3OF0"  # Search Console所有権確認トークン（アカウント共通）
-SPONSOR_CTA_URL = "https://tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor"
 SITE_NAME = "ローイングマニア"
+
+# ---- ツナカレ接続導線（部活メディア→ツナカレ接続設計 2026-08 D1〜D5準拠） --------------
+# 全リンク共通のUTM規約: utm_source=<サイト>&utm_medium=referral&utm_campaign=<種別>
+SPONSOR_CTA_URL = "https://tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor"
+SPONSOR_LP02_URL = "https://lp.tunakare.jp/02/?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor"  # 企業向けLP
+LISTING_LP_URL = "https://lp.tunakare.jp/s01/?utm_source=rowingmania&utm_medium=referral&utm_campaign=listing"  # 学生団体向けLP（協賛募集の無料掲載）
+MEDIA_PR_CONTACT_URL = "https://media.tunakare.jp/contact/student/?utm_source=rowingmania&utm_medium=referral&utm_campaign=media-pr"
+SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=shukatsu"
+CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
+TUNAKARE_LINKS_PATH = DATA / "tunakare_links.json"  # {university_slug: {"sponsorship_slug","community","title"}}
 
 # 種目コードの表示順（男子7種目→女子6種目。年度により一部種目が存在しないこともある）
 EVENT_ORDER = [
@@ -103,6 +112,14 @@ def load_articles():
         arts.append(a)
     arts.sort(key=lambda a: (a.get("date", ""), a["slug"]), reverse=True)
     return arts
+
+
+def load_tunakare_links():
+    """data/tunakare_links.json（大学slug→ツナカレ協賛案件slugの対応表）を読む。
+    未整備の大学はマッピングなし（=応援ブロックがフォールバック導線を表示）として扱う。"""
+    if not TUNAKARE_LINKS_PATH.exists():
+        return {}
+    return json.loads(TUNAKARE_LINKS_PATH.read_text(encoding="utf-8"))
 
 
 def build_indices(years):
@@ -183,6 +200,19 @@ def univ_link(name, universities, R=""):
     if not u:
         return escape(name)
     return f'<a href="{R}universities/{u["slug"]}/index.html">{escape(name)}</a>'
+
+
+def sponsor_slug_url(slug):
+    """協賛案件の公開詳細ページへの直リンク（D1マッピング基盤・G2解消）。"""
+    return (f"https://tunakare.jp/sponsorship/search/p/{slug}"
+            "?utm_source=rowingmania&utm_medium=referral&utm_campaign=sponsor")
+
+
+def tunakare_cta(url, label, event, css_class="cta"):
+    """ツナカレ系リンク共通の描画（D5: 全リンク rel=\"noopener sponsored\"＋「PR」表記）。"""
+    return (f'<a class="{css_class}" href="{escape(url)}" target="_blank" rel="noopener sponsored" '
+            f'onclick="window.gtag&&gtag(\'event\',\'{event}\')">'
+            f'<span class="pr-badge">PR</span>{escape(label)}</a>')
 
 
 def source_note(y):
@@ -356,7 +386,57 @@ def article_card(a, rel):
             f'<p class="note">{escape(a["description"])}</p></div>')
 
 
-def build_articles(articles, meta):
+# D3: 記事frontmatterの `cta:` で帯を出し分け（shukatsu/career/listing/sponsor/none・未指定はnone）
+CTA_DEFS = {
+    "shukatsu": {
+        "heading": "部活と就活の両立、ひとりで悩まない",
+        "label": "無料で就活相談する →",
+        "url": SHUKATSU_URL,
+        "event": "cv_shukatsu_click",
+    },
+    "career": {
+        "heading": "体育会出身の転職・キャリア相談",
+        "label": "キャリア相談をしてみる →",
+        "url": CAREER_URL,
+        "event": "cv_career_click",
+    },
+    "listing": {
+        "heading": "遠征費・運営資金に。協賛募集を無料掲載",
+        "label": "協賛募集の掲載について見る →",
+        "url": LISTING_LP_URL,
+        "event": "cv_listing_click",
+    },
+}
+
+
+def sponsor_target_for_article(a, tunakare_links):
+    """大学の軌跡シリーズ（univ-history-<slug>.md）は該当大学のマッピングがあれば
+    slug直リンクを、無ければ協賛検索トップへのフォールバックを返す。"""
+    slug = a["slug"]
+    if slug.startswith("univ-history-"):
+        link = tunakare_links.get(slug[len("univ-history-"):])
+        if link:
+            return sponsor_slug_url(link["sponsorship_slug"]), link.get("community")
+    return SPONSOR_CTA_URL, None
+
+
+def build_article_cta_band(a, tunakare_links):
+    cta = (a.get("cta") or "none").strip()
+    if cta == "sponsor":
+        url, community = sponsor_target_for_article(a, tunakare_links)
+        label = f'{community}の協賛募集を見る →' if community else '応援できる部活を探す →'
+        return ('<section class="article-cta"><h2>この部活・競技を応援したい方へ</h2>'
+                f'<p>{tunakare_cta(url, label, "cv_sponsor_click")}</p>'
+                f'<p class="note">{tunakare_cta(SPONSOR_LP02_URL, "法人・企業の方はこちら（協賛のご相談） →", "cv_sponsor_click", "cta-text")}</p>'
+                '</section>')
+    if cta in CTA_DEFS:
+        d = CTA_DEFS[cta]
+        return (f'<section class="article-cta"><h2>{escape(d["heading"])}</h2>'
+                f'<p>{tunakare_cta(d["url"], d["label"], d["event"])}</p></section>')
+    return ""
+
+
+def build_articles(articles, meta, tunakare_links):
     if not articles:
         return
     rel = "../"
@@ -380,6 +460,7 @@ def build_articles(articles, meta):
                  f' <span class="note">{escape(a["date"])}</span></p>')
         body += f'<h1>{escape(a["title"])}</h1>'
         body += f'<div class="article">{md_to_html(a["body"])}</div>'
+        body += build_article_cta_band(a, tunakare_links)
         body += f'<section><h2>あわせて読む</h2><ul>{related}</ul></section>'
         write_page(f"articles/{a['slug']}",
                    page(rel, f'{a["title"]} | {SITE_NAME}', body, meta,
@@ -387,6 +468,23 @@ def build_articles(articles, meta):
 
 
 # ---------------------------------------------------------------- portal
+
+def build_support_section():
+    """D4: トップページ支援セクション（応援する／無料で掲載／取材募集の3カード。G1解消）。"""
+    cards = (
+        '<div class="digest-card"><h3>応援する</h3>'
+        '<p class="note">気になる大学の部活をチェックして、協賛募集の内容を見てみる。</p>'
+        f'<p>{tunakare_cta(SPONSOR_CTA_URL, "応援できる部活を探す →", "cv_sponsor_click")}</p></div>'
+        '<div class="digest-card"><h3>無料で掲載</h3>'
+        '<p class="note">部活の運営者の方へ。遠征費・運営資金のための協賛募集を無料で掲載できます。</p>'
+        f'<p>{tunakare_cta(LISTING_LP_URL, "協賛募集を掲載する →", "cv_listing_click")}</p></div>'
+        '<div class="digest-card"><h3>取材募集</h3>'
+        '<p class="note">取材してほしい部活・大会がある方はこちらから。</p>'
+        f'<p>{tunakare_cta(MEDIA_PR_CONTACT_URL, "取材を依頼する →", "cv_media_pr_click")}</p></div>'
+    )
+    return (f'<section class="support-section"><h2>{SITE_NAME}を通じて部活を応援する</h2>'
+            f'<div class="digest">{cards}</div></section>')
+
 
 def build_portal(years, events, universities, articles, meta):
     rel = ""
@@ -435,6 +533,8 @@ def build_portal(years, events, universities, articles, meta):
                  f'{escape(ev["name"])}</a></h3>'
                  f'<p class="note">収録{n_years}年度</p></div>')
     body += '</div><p class="more"><a class="cta" href="events/index.html">全種目一覧へ →</a></p></section>'
+
+    body += build_support_section()
 
     if articles:
         body += ('<section><h2>読みもの</h2><div class="digest">'
@@ -622,7 +722,28 @@ def build_universities_index(universities, meta):
                                     desc="全日本大学ローイング選手権に出場した大学の一覧。優勝回数・決勝進出回数付き。"))
 
 
-def build_university_page(u, meta):
+def build_support_block(u, tunakare_links):
+    """D2: チームページ（＝アーカイブ型のためこのリポジトリでは大学ページ）の応援ブロック。
+    マッピング有無で3導線を出し分ける（G2解消: 見ていた部活の協賛ページに直接届かせる）。"""
+    link = tunakare_links.get(u["slug"])
+    lanes = []
+    if link:
+        community = link.get("community") or u["name"]
+        lanes.append(tunakare_cta(
+            sponsor_slug_url(link["sponsorship_slug"]),
+            f"{community}の協賛募集を見る →", "cv_sponsor_click"))
+    else:
+        lanes.append(tunakare_cta(SPONSOR_CTA_URL, "応援できる部活を探す →", "cv_sponsor_click"))
+        lanes.append(tunakare_cta(
+            LISTING_LP_URL, "この部の関係者の方へ：協賛募集を無料で掲載 →",
+            "cv_listing_click", "cta cta-sub"))
+    lanes.append(tunakare_cta(
+        MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub"))
+    lanes_html = "".join(f"<p>{lane}</p>" for lane in lanes)
+    return f'<section class="sponsor"><h2>この部を応援する</h2>{lanes_html}</section>'
+
+
+def build_university_page(u, meta, tunakare_links):
     rel = "../../"
     name = u["name"]
     body = (f'<p class="breadcrumb"><a href="{rel}index.html">トップ</a> › '
@@ -648,10 +769,7 @@ def build_university_page(u, meta):
              f'<tbody>{rows}</tbody></table></div>'
              '<p class="note">※「決勝結果」は決勝（A〜D）に進出した場合の着順・タイムです。決勝未進出の種目は到達ラウンドのみ表示しています。</p></section>')
 
-    body += ('<section class="sponsor"><h2>この大学の部活を応援する企業</h2>'
-             '<p class="todo">（協賛メニュー連携枠：スポンサー企業ロゴ・リンクをここに配置）</p>'
-             f'<p><a class="cta" href="{SPONSOR_CTA_URL}" target="_blank" rel="noopener" '
-             'onclick="window.gtag&&gtag(\'event\',\'cv_sponsor_click\')">協賛について問い合わせる →</a></p></section>')
+    body += build_support_block(u, tunakare_links)
 
     write_page(f"universities/{u['slug']}",
                page(rel, f'{name} 全日本大学ローイング選手権 出場記録 | {SITE_NAME}', body, meta,
@@ -813,8 +931,20 @@ table.detail td { white-space:normal; }
 .digest-card h3 a:hover { color:var(--accent-dark); }
 .digest-card .tbl { border:none; }
 
-.sponsor .todo { color:var(--sub); background:var(--surface);
-  border:1px dashed var(--line); border-radius:10px; padding:.8rem; font-size:.85rem; }
+.sponsor p, .support-section .digest-card p { margin:.5em 0; }
+.pr-badge { display:inline-block; background:#f2c94c; color:#4a3800; font-size:.65rem;
+  font-weight:800; letter-spacing:.03em; padding:.12em .45em; border-radius:4px;
+  margin-right:.45em; vertical-align:middle; }
+.cta-sub { background:var(--navy-2); }
+.cta-sub:hover { background:var(--navy); }
+.cta-text { display:inline-block; background:none; color:var(--sub); font-weight:600;
+  font-size:.8rem; padding:0; }
+.cta-text:hover { color:var(--accent-dark); }
+.article-cta { background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:1.1rem 1.3rem 1.2rem; margin-top:1.6rem; }
+.article-cta h2 { margin-top:0; border-left:4px solid var(--accent); padding-left:.55em;
+  font-size:1rem; }
+.support-section { margin-top:2.4em; }
 
 .cat-line { font-size:.8rem; margin:.4rem 0; }
 .article { background:var(--surface); border:1px solid var(--line); border-radius:10px;
@@ -843,6 +973,7 @@ def main():
     if not years:
         raise SystemExit("大会データがありません（fetch_rowing.pyを先に実行）")
     articles = load_articles()
+    tunakare_links = load_tunakare_links()
     events, universities = build_indices(years)
 
     global_meta = {
@@ -872,8 +1003,8 @@ def main():
             build_event_page(code, events[code], universities, global_meta)
     build_universities_index(universities, global_meta)
     for u in universities.values():
-        build_university_page(u, global_meta)
-    build_articles(articles, global_meta)
+        build_university_page(u, global_meta, tunakare_links)
+    build_articles(articles, global_meta, tunakare_links)
     build_dashboard(years, events, universities, global_meta)
     write_sitemap_and_robots()
 
