@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="0X77J6-cDQak8VJkyt1PGegqMjZwEI2HWAYjkwl3OF0">
+<title>お問い合わせ | ローイングマニア</title>
+<meta name="description" content="ローイングマニアへの取材・情報提供、掲載・広告のご相談はこちらから。">
+<meta property="og:title" content="お問い合わせ | ローイングマニア">
+<meta property="og:description" content="ローイングマニアへの取材・情報提供、掲載・広告のご相談はこちらから。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rowingmania.jp/contact/">
+<meta property="og:site_name" content="ローイングマニア">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://rowingmania.jp/contact/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2VXCQKLYZ8"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2VXCQKLYZ8');</script>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html"><span class="brand-tick"></span>ローイングマニア<span class="brand-sub">JAPAN COLLEGE ROWING</span></a>
+    <nav class="global-nav"><a href="../index.html">トップ</a><a href="../years/index.html">年度一覧</a><a href="../events/index.html">種目一覧</a><a href="../universities/index.html">大学一覧</a><a href="../contact/index.html">お問い合わせ</a></nav>
+  </div>
+</header>
+
+<main>
+<h1>お問い合わせ</h1><p class="lead">取材・情報提供、掲載・広告のご相談を受け付けています。3営業日以内にメールでご返信します。</p><noscript><p class="form-message">このフォームのご利用にはJavaScriptの有効化が必要です。</p></noscript>
+<form id="contact-form" class="contact-form">
+  <div class="form-row">
+    <label for="cf-name">お名前<span class="req">必須</span></label>
+    <input type="text" id="cf-name" name="name" required autocomplete="name">
+  </div>
+  <div class="form-row">
+    <label for="cf-affiliation">ご所属</label>
+    <input type="text" id="cf-affiliation" name="affiliation" autocomplete="organization">
+  </div>
+  <div class="form-row">
+    <label for="cf-email">メールアドレス<span class="req">必須</span></label>
+    <input type="email" id="cf-email" name="email" required autocomplete="email">
+  </div>
+  <div class="form-row">
+    <label for="cf-type">種別<span class="req">必須</span></label>
+    <select id="cf-type" name="type" required>
+      <option value="">選択してください</option>
+      <option value="取材・情報提供">取材・情報提供</option>
+      <option value="掲載・広告のご相談">掲載・広告のご相談</option>
+      <option value="その他">その他</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="cf-body">内容<span class="req">必須</span></label>
+    <textarea id="cf-body" name="body" rows="7" required></textarea>
+  </div>
+  <div class="hp-field" aria-hidden="true">
+    <label for="cf-website">ウェブサイト</label>
+    <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off">
+  </div>
+  <button type="submit" id="cf-submit" class="cta">送信する</button>
+</form>
+<p id="cf-message" class="form-message" role="status" aria-live="polite"></p><script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var msg = document.getElementById('cf-message');
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var payload = {
+      mediaKey: 'rowing',
+      name: form.name.value,
+      affiliation: form.affiliation.value,
+      email: form.email.value,
+      type: form.type.value,
+      body: form.body.value,
+      website: form.website.value
+    };
+    var elements = form.elements;
+    var i;
+    for (i = 0; i < elements.length; i++) { elements[i].disabled = true; }
+    msg.textContent = '';
+    msg.className = 'form-message';
+    fetch('https://mania-contact.vercel.app/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.json().catch(function () { return { ok: false }; });
+    }).then(function (data) {
+      if (data && data.ok) {
+        form.style.display = 'none';
+        msg.textContent = '送信しました。3営業日以内にご返信します。';
+        msg.className = 'form-message form-message-ok';
+      } else {
+        throw new Error('failed');
+      }
+    }).catch(function () {
+      msg.textContent = '送信に失敗しました。時間をおいてお試しください。';
+      msg.className = 'form-message form-message-error';
+      for (i = 0; i < elements.length; i++) { elements[i].disabled = false; }
+    });
+  });
+})();
+</script>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-brand">ローイングマニア</p>
+    <nav class="footer-nav"><a href="../index.html">トップ</a><a href="../years/index.html">年度一覧</a><a href="../events/index.html">種目一覧</a><a href="../universities/index.html">大学一覧</a><a href="../contact/index.html">お問い合わせ</a></nav>
+    <p>大会データ出典: <a href="https://www.jara.or.jp/race/">日本ローイング協会 (JARA)</a>
+    （情報更新日: 2026-08-25）</p>
+    <p>ローイングマニアは全日本大学ローイング選手権（インカレ）の記録アーカイブサイトです。掲載の着順・タイムは出典元の公表データを編集部で整形したものです。個人の氏名・身長・体重等は掲載していません。確定情報は日本ローイング協会公式サイトをご確認ください。</p>
+  </div>
+</footer>
+</body>
+</html>

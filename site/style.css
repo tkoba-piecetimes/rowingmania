@@ -122,3 +122,21 @@ table.detail td { white-space:normal; }
 .footer-nav { display:flex; gap:1rem; margin:.2rem 0 .8rem; flex-wrap:wrap; }
 .footer-nav a { color:#c3d1e0; text-decoration:none; }
 .site-footer a { color:#c3d1e0; }
+
+.contact-form { max-width:32rem; margin-top:1.2rem; }
+.form-row { margin-bottom:1.1rem; display:flex; flex-direction:column; gap:.35rem; }
+.form-row label { font-weight:700; font-size:.85rem; color:var(--navy); }
+.form-row .req { display:inline-block; margin-left:.4em; font-size:.68rem; font-weight:700;
+  color:#fff; background:var(--accent-dark); border-radius:4px; padding:.05em .4em; vertical-align:middle; }
+.form-row input, .form-row select, .form-row textarea {
+  font:inherit; padding:.55em .7em; border:1px solid var(--line); border-radius:8px;
+  background:var(--surface); color:var(--ink); width:100%; }
+.form-row textarea { resize:vertical; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  outline:2px solid var(--accent); outline-offset:1px; }
+.hp-field { position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden; }
+button.cta { border:none; font:inherit; cursor:pointer; }
+button.cta:disabled { opacity:.55; cursor:default; }
+.form-message { margin-top:1rem; font-weight:700; }
+.form-message-ok { color:var(--win, #15803d); }
+.form-message-error { color:var(--loss, #b91c1c); }
