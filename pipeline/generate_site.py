@@ -44,6 +44,7 @@ LISTING_LP_URL = "https://lp.tunakare.jp/s01/?utm_source=rowingmania&utm_medium=
 MEDIA_PR_CONTACT_URL = "https://media.tunakare.jp/contact/student/?utm_source=rowingmania&utm_medium=referral&utm_campaign=media-pr"
 SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=shukatsu"
 CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
+BIZ_GUIDE_URL = "https://shukatsu.tunakare.jp/biz/guide?utm_source=rowingmania&utm_medium=referral&utm_campaign=biz-guide"
 
 # ---- お問い合わせ（中立リレーAPI経由・運営元秘匿。メディアSNS統合要件定義_2026-08 §3-1）
 CONTACT_MEDIA_KEY = "rowing"
@@ -408,9 +409,14 @@ def build_article_cta_band(a):
     """
     cta = (a.get("cta") or "none").strip()
     if cta == "sponsor":
+        # 読者の大半は学生・保護者・OBのため、sponsor帯の直後に学生向け就活相談の
+        # 副帯（outlineスタイル）を必ず追加する。
         return ('<section class="article-cta"><h2>この部活・競技を応援したい方へ</h2>'
                 f'<p>{tunakare_cta(SPONSOR_CTA_URL, "ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click")}</p>'
                 f'<p class="note">{tunakare_cta(SPONSOR_LP02_URL, "法人・企業の方はこちら（協賛のご相談） →", "cv_sponsor_click", "cta-text")}</p>'
+                '</section>'
+                '<section class="article-cta cta-band-sub"><h2>部活と就活の両立、ひとりで悩まない</h2>'
+                f'<p>{tunakare_cta(SHUKATSU_URL, "体育会学生向けの無料就活相談 →", "cv_shukatsu_click", "cta cta-sub")}</p>'
                 '</section>')
     if cta in CTA_DEFS:
         d = CTA_DEFS[cta]
@@ -812,6 +818,12 @@ def build_support_block():
     """
     lanes = [
         tunakare_cta(SPONSOR_CTA_URL, "この部活・競技を応援したい方へ：ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click"),
+        tunakare_cta(
+            SHUKATSU_URL, "この部の学生の方へ: 部活と両立できる就活相談（無料・メールで回答） →",
+            "cv_shukatsu_click"),
+        tunakare_cta(
+            BIZ_GUIDE_URL, "体育会学生の採用を検討中の企業の方へ: 体育会学生採用ガイド2026（無料資料） →",
+            "cv_guide_click", "cta cta-sub"),
         tunakare_cta(
             LISTING_LP_URL, "この部の関係者の方へ：協賛募集を無料で掲載 →",
             "cv_listing_click", "cta cta-sub"),
