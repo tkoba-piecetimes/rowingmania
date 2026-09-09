@@ -36,5 +36,38 @@
     <p>ローイングマニアは全日本大学ローイング選手権（インカレ）の記録アーカイブサイトです。掲載の着順・タイムは出典元の公表データを編集部で整形したものです。個人の氏名・身長・体重等は掲載していません。確定情報は日本ローイング協会公式サイトをご確認ください。</p>
   </div>
 </footer>
+<script>
+(function () {
+  var DISMISS_KEY = 'rwm_sticky_cta_dismissed';
+  var bar = document.getElementById('sticky-cta');
+  if (bar) {
+    try {
+      if (sessionStorage.getItem(DISMISS_KEY) === '1') { bar.style.display = 'none'; }
+    } catch (e) {}
+    var closeBtn = document.getElementById('sticky-cta-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        bar.style.display = 'none';
+        try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+      });
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var key = el.dataset.cta + '|' + el.dataset.position;
+        if (seen[key]) return;
+        seen[key] = true;
+        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position });
+        io.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-cta]').forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
 </body>
 </html>

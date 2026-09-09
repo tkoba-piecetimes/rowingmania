@@ -35,6 +35,7 @@ SITE_BASE = "https://rowingmania.jp/"
 GA_MEASUREMENT_ID = "G-2VXCQKLYZ8"  # GA4「ローイングマニア」専用プロパティ（プロパティID 549897625）
 GSC_VERIFICATION = "0X77J6-cDQak8VJkyt1PGegqMjZwEI2HWAYjkwl3OF0"  # Search Console所有権確認トークン（アカウント共通）
 SITE_NAME = "ローイングマニア"
+SPORT_NAME = "ボート"  # 学生向けCTA（ガクチカ資料DL等）の競技名差し込み用
 
 # ---- ツナカレ接続導線（部活メディア→ツナカレ接続設計 2026-08 D1〜D5準拠） --------------
 # 全リンク共通のUTM規約: utm_source=<サイト>&utm_medium=referral&utm_campaign=<種別>
@@ -43,6 +44,7 @@ SPONSOR_LP02_URL = "https://lp.tunakare.jp/02/?utm_source=rowingmania&utm_medium
 LISTING_LP_URL = "https://lp.tunakare.jp/s01/?utm_source=rowingmania&utm_medium=referral&utm_campaign=listing"  # 学生団体向けLP（協賛募集の無料掲載）
 MEDIA_PR_CONTACT_URL = "https://media.tunakare.jp/contact/student/?utm_source=rowingmania&utm_medium=referral&utm_campaign=media-pr"
 SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=shukatsu"
+GAKUCHIKA_URL = "https://shukatsu.tunakare.jp/download/gakuchika-template?utm_source=rowingmania&utm_medium=referral&utm_campaign=gakuchika-template"  # 2026-09-09決定: 学生向け主導線を競技別ガクチカ資料DLに変更
 CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
 BIZ_GUIDE_URL = "https://career.tunakare.jp/biz/guide?utm_source=rowingmania&utm_medium=referral&utm_campaign=biz-guide"
 
@@ -205,6 +207,13 @@ def tunakare_cta(url, label, event, css_class="cta"):
             f'<span class="pr-badge">PR</span>{escape(label)}</a>')
 
 
+def cta_lane(url, label, event, css_class="cta", position="sponsor_block"):
+    """CTA表示回数計測（cta_view）用: tunakare_cta の出力を data-cta/data-position 付きの
+    <p>でラップする。IntersectionObserverはこの属性を持つ要素を監視する（page()内の共通スクリプト参照）。"""
+    return (f'<p data-cta="{escape(event)}" data-position="{escape(position)}">'
+            f'{tunakare_cta(url, label, event, css_class)}</p>')
+
+
 def source_note(y):
     return (f'<a href="{escape(y["source_url"])}">{escape(y["source"])}</a>'
             f'（{escape(y["tournament_name"])}）')
@@ -222,7 +231,7 @@ NAV_ITEMS = [
 
 
 def page(rel, title, body, meta, *, path="", desc="", extra_head="", og_type="website",
-         subnav="", sitemap=True):
+         subnav="", sitemap=True, sticky=""):
     if sitemap:
         _sitemap_paths.append(path)
     else:
@@ -241,6 +250,7 @@ def page(rel, title, body, meta, *, path="", desc="", extra_head="", og_type="we
     gsc = f'<meta name="google-site-verification" content="{GSC_VERIFICATION}">\n' if GSC_VERIFICATION else ""
     nav = "".join(f'<a href="{rel}{href}">{label}</a>' for href, label in NAV_ITEMS)
     src_html = f'<a href="{escape(meta["source_url"])}">{escape(meta["source"])}</a>'
+    body_class = ' class="has-sticky-cta"' if sticky else ""
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -258,7 +268,7 @@ def page(rel, title, body, meta, *, path="", desc="", extra_head="", og_type="we
 {extra_head}{ga}
 <link rel="stylesheet" href="{rel}style.css">
 </head>
-<body>
+<body{body_class}>
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="{rel}index.html"><span class="brand-tick"></span>{SITE_NAME}<span class="brand-sub">JAPAN COLLEGE ROWING</span></a>
@@ -278,6 +288,7 @@ def page(rel, title, body, meta, *, path="", desc="", extra_head="", og_type="we
     <p>{SITE_NAME}は全日本大学ローイング選手権（インカレ）の記録アーカイブサイトです。掲載の着順・タイムは出典元の公表データを編集部で整形したものです。個人の氏名・身長・体重等は掲載していません。確定情報は日本ローイング協会公式サイトをご確認ください。</p>
   </div>
 </footer>
+{sticky}{CTA_VIEW_SCRIPT}
 </body>
 </html>"""
 
@@ -286,6 +297,58 @@ def write_page(path, html):
     out = SITE / path / "index.html" if path else SITE / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
+
+
+# ---------------------------------------------------------------- C/D: スマホ固定バー・CTA計測
+
+def sticky_bar():
+    """C: 大学ページ・記事ページ限定でpage()から差し込む、画面幅768px未満のときだけ表示する
+    固定バー（ガクチカ資料DL・Aと同一リンク/イベント）。閉じるとsessionStorageに記録し、
+    そのセッション中は再表示しない（page()内 CTA_VIEW_SCRIPT が閉じるボタンを配線する）。"""
+    label = f"{SPORT_NAME}部のガクチカ テンプレ＆例文集（無料PDF）"
+    return (
+        '<div class="sticky-cta" id="sticky-cta" data-cta="cv_gakuchika_click" data-position="sticky">'
+        f'<span class="sticky-cta-text">{escape(label)}</span>'
+        f'{tunakare_cta(GAKUCHIKA_URL, "受け取る", "cv_gakuchika_click", "cta sticky-cta-btn")}'
+        '<button type="button" class="sticky-cta-close" id="sticky-cta-close" aria-label="閉じる">×</button>'
+        '</div>'
+    )
+
+
+# D: CTA表示回数計測（cta_view）＋ 固定バーの閉じるボタン配線。page()の</body>直前に1つだけ挿入する共通スクリプト。
+CTA_VIEW_SCRIPT = """<script>
+(function () {
+  var DISMISS_KEY = 'rwm_sticky_cta_dismissed';
+  var bar = document.getElementById('sticky-cta');
+  if (bar) {
+    try {
+      if (sessionStorage.getItem(DISMISS_KEY) === '1') { bar.style.display = 'none'; }
+    } catch (e) {}
+    var closeBtn = document.getElementById('sticky-cta-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        bar.style.display = 'none';
+        try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch (e) {}
+      });
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var key = el.dataset.cta + '|' + el.dataset.position;
+        if (seen[key]) return;
+        seen[key] = true;
+        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position });
+        io.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-cta]').forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>"""
 
 
 # ---------------------------------------------------------------- markdown (記事機能・雛形のまま)
@@ -378,12 +441,13 @@ def article_card(a, rel):
 
 
 # D3: 記事frontmatterの `cta:` で帯を出し分け（shukatsu/career/listing/sponsor/none・未指定はnone）
+# 2026-09-09決定: shukatsuキーの主帯は競技別ガクチカ資料DL（Aと同一リンク/イベント）に置き換え。
 CTA_DEFS = {
     "shukatsu": {
-        "heading": "部活と就活の両立、ひとりで悩まない",
-        "label": "無料で就活相談する →",
-        "url": SHUKATSU_URL,
-        "event": "cv_shukatsu_click",
+        "heading": f"{SPORT_NAME}部の「ガクチカ」、書き方に迷ったら",
+        "label": f"{SPORT_NAME}部のガクチカ、書き方テンプレ＆例文集（無料PDF）を受け取る →",
+        "url": GAKUCHIKA_URL,
+        "event": "cv_gakuchika_click",
     },
     "career": {
         "heading": "体育会出身の転職・キャリア相談",
@@ -406,22 +470,25 @@ def build_article_cta_band(a):
     （個別大学への協賛ページ直リンク・団体名表示は行わない。募集中の部活はツナカレに
     遷移して初めてわかる設計。案件には締切・停止があり静的サイト側に募集状況を持つと
     管理不能になるため）。
+
+    2026-09-09決定: sponsor記事の副帯は学生向け就活相談（cv_shukatsu_click）ではなく、
+    プラットフォーム（協賛）または取材の導線のみにする。副帯を「取材してほしい部活を
+    募集中」（MEDIA_PR_CONTACT_URL / cv_media_pr_click）に置き換えた。
     """
     cta = (a.get("cta") or "none").strip()
     if cta == "sponsor":
-        # 読者の大半は学生・保護者・OBのため、sponsor帯の直後に学生向け就活相談の
-        # 副帯（outlineスタイル）を必ず追加する。
         return ('<section class="article-cta"><h2>この部活・競技を応援したい方へ</h2>'
-                f'<p>{tunakare_cta(SPONSOR_CTA_URL, "ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click")}</p>'
-                f'<p class="note">{tunakare_cta(SPONSOR_LP02_URL, "法人・企業の方はこちら（協賛のご相談） →", "cv_sponsor_click", "cta-text")}</p>'
+                f'{cta_lane(SPONSOR_CTA_URL, "ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click", position="cta_band")}'
+                f'<p class="note" data-cta="cv_sponsor_click" data-position="cta_band">'
+                f'{tunakare_cta(SPONSOR_LP02_URL, "法人・企業の方はこちら（協賛のご相談） →", "cv_sponsor_click", "cta-text")}</p>'
                 '</section>'
-                '<section class="article-cta cta-band-sub"><h2>部活と就活の両立、ひとりで悩まない</h2>'
-                f'<p>{tunakare_cta(SHUKATSU_URL, "体育会学生向けの無料就活相談 →", "cv_shukatsu_click", "cta cta-sub")}</p>'
+                '<section class="article-cta cta-band-sub"><h2>取材してほしい部活を募集中</h2>'
+                f'{cta_lane(MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub", position="cta_band")}'
                 '</section>')
     if cta in CTA_DEFS:
         d = CTA_DEFS[cta]
         return (f'<section class="article-cta"><h2>{escape(d["heading"])}</h2>'
-                f'<p>{tunakare_cta(d["url"], d["label"], d["event"])}</p></section>')
+                f'{cta_lane(d["url"], d["label"], d["event"], position="cta_band")}</section>')
     return ""
 
 
@@ -453,7 +520,8 @@ def build_articles(articles, meta):
         body += f'<section><h2>あわせて読む</h2><ul>{related}</ul></section>'
         write_page(f"articles/{a['slug']}",
                    page(rel, f'{a["title"]} | {SITE_NAME}', body, meta,
-                        path=f'articles/{a["slug"]}/', desc=a["description"], og_type="article"))
+                        path=f'articles/{a["slug"]}/', desc=a["description"], og_type="article",
+                        sticky=sticky_bar()))
 
 
 # ---------------------------------------------------------------- contact
@@ -810,27 +878,33 @@ def build_universities_index(universities, meta):
 
 def build_support_block():
     """D2改訂版: チームページ（＝アーカイブ型のためこのリポジトリでは大学ページ）の応援ブロック。
-    全大学共通の汎用3導線を表示する。
+    全大学共通の汎用導線を表示する。
 
     個別大学への協賛ページ直リンク・団体名表示は行わない（募集中の部活はツナカレに
     遷移して初めてわかる設計。案件には締切・停止があり静的サイト側に募集状況を持つと
     管理不能になるため）。
+
+    2026-09-09決定: 学生向け主導線を「競技名入りのガクチカ資料DL」に変更（cv_gakuchika_click）。
+    既存の就活相談導線（cv_shukatsu_click）は削除せず、副導線（cta cta-sub）に降格した。
+    企業向け資料DL・協賛・掲載・取材の導線は現状維持。
     """
-    lanes = [
-        tunakare_cta(SPONSOR_CTA_URL, "この部活・競技を応援したい方へ：ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click"),
-        tunakare_cta(
+    lanes_html = (
+        cta_lane(SPONSOR_CTA_URL, "この部活・競技を応援したい方へ：ツナカレで協賛募集中の部活を探す →", "cv_sponsor_click")
+        + cta_lane(
+            GAKUCHIKA_URL, f"{SPORT_NAME}部のガクチカ、書き方テンプレ＆例文集（無料PDF）を受け取る →",
+            "cv_gakuchika_click")
+        + cta_lane(
             SHUKATSU_URL, "この部の学生の方へ: 部活と両立できる就活相談（無料・メールで回答） →",
-            "cv_shukatsu_click"),
-        tunakare_cta(
+            "cv_shukatsu_click", "cta cta-sub")
+        + cta_lane(
             BIZ_GUIDE_URL, "体育会学生の採用を検討中の企業の方へ: 体育会学生採用ガイド2026（無料資料） →",
-            "cv_guide_click", "cta cta-sub"),
-        tunakare_cta(
+            "cv_guide_click", "cta cta-sub")
+        + cta_lane(
             LISTING_LP_URL, "この部の関係者の方へ：協賛募集を無料で掲載 →",
-            "cv_listing_click", "cta cta-sub"),
-        tunakare_cta(
-            MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub"),
-    ]
-    lanes_html = "".join(f"<p>{lane}</p>" for lane in lanes)
+            "cv_listing_click", "cta cta-sub")
+        + cta_lane(
+            MEDIA_PR_CONTACT_URL, "取材してほしい部活を募集中 →", "cv_media_pr_click", "cta cta-sub")
+    )
     return f'<section class="sponsor"><h2>この部を応援する</h2>{lanes_html}</section>'
 
 
@@ -865,7 +939,8 @@ def build_university_page(u, meta):
     write_page(f"universities/{u['slug']}",
                page(rel, f'{name} 全日本大学ローイング選手権 出場記録 | {SITE_NAME}', body, meta,
                     path=f"universities/{u['slug']}/",
-                    desc=f'{name}の全日本大学ローイング選手権 年度別出場種目・決勝進出回数・優勝回数。'))
+                    desc=f'{name}の全日本大学ローイング選手権 年度別出場種目・決勝進出回数・優勝回数。',
+                    sticky=sticky_bar()))
 
 
 # ---------------------------------------------------------------- 運営ダッシュボード
@@ -1042,6 +1117,19 @@ table.detail td { white-space:normal; }
 .article-cta h2 { margin-top:0; border-left:4px solid var(--accent); padding-left:.55em;
   font-size:1rem; }
 .support-section { margin-top:2.4em; }
+
+/* C: スマホ専用の画面下固定バー（768px未満のみ表示。page()のsticky引数から差し込む） */
+.sticky-cta { display:none; align-items:center; gap:.6rem; }
+@media (max-width:767px) {
+  body.has-sticky-cta { padding-bottom:4.8rem; }
+  .sticky-cta { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:40;
+    background:var(--surface); border-top:1px solid var(--line);
+    box-shadow:0 -2px 10px rgba(7,26,51,.14); padding:.6rem .8rem; }
+  .sticky-cta-text { flex:1; font-size:.78rem; font-weight:700; color:var(--navy); line-height:1.3; }
+  .sticky-cta-btn { flex-shrink:0; padding:.5em .9em; font-size:.8rem; white-space:nowrap; }
+  .sticky-cta-close { flex-shrink:0; border:none; background:none; color:var(--sub);
+    font-size:1.2rem; line-height:1; padding:.2em .4em; cursor:pointer; }
+}
 
 .cat-line { font-size:.8rem; margin:.4rem 0; }
 .article { background:var(--surface); border:1px solid var(--line); border-radius:12px;
