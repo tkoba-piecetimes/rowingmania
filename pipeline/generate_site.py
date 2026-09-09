@@ -44,7 +44,7 @@ LISTING_LP_URL = "https://lp.tunakare.jp/s01/?utm_source=rowingmania&utm_medium=
 MEDIA_PR_CONTACT_URL = "https://media.tunakare.jp/contact/student/?utm_source=rowingmania&utm_medium=referral&utm_campaign=media-pr"
 SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=shukatsu"
 CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
-BIZ_GUIDE_URL = "https://shukatsu.tunakare.jp/biz/guide?utm_source=rowingmania&utm_medium=referral&utm_campaign=biz-guide"
+BIZ_GUIDE_URL = "https://career.tunakare.jp/biz/guide?utm_source=rowingmania&utm_medium=referral&utm_campaign=biz-guide"
 
 # ---- お問い合わせ（中立リレーAPI経由・運営元秘匿。メディアSNS統合要件定義_2026-08 §3-1）
 CONTACT_MEDIA_KEY = "rowing"
