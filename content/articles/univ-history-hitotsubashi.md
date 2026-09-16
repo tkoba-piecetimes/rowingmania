@@ -294,6 +294,8 @@ cta: sponsor
 ## 関連リンク
 
 - [一橋大学の大学別戦績ページ](../../universities/hitotsubashi/index.html)
+- [慶應義塾大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-keio/index.html)
+- [明治大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-meiji/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2024年度 全日本大学ローイング選手権 結果](../../years/2024/index.html)
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)
