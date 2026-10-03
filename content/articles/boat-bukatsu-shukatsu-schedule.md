@@ -55,7 +55,7 @@ cta: shukatsu
 
 ## 自分の代の立ち位置を大学ボートの記録から振り返る
 
-就活で語る競技実績を整理する際には、自分の代がどのくらいのレベルにあったのかを客観的に振り返っておくと説得力が増します。[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[慶應義塾大学ボート部のインカレ全記録](https://rowingmania.jp/universities/keio/)のように大学別の年度別成績を確認できるほか、[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から種目別の成績を一覧で振り返ることもできます。
+就活で語る競技実績を整理する際には、自分の代がどのくらいのレベルにあったのかを客観的に振り返っておくと説得力が増します。[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[慶應義塾大学ボート部のインカレ全記録](https://rowingmania.jp/universities/keio/)のように大学別の年度別成績を確認できるほか、[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から種目別の成績を一覧で振り返ることもできます。立教大学の出身者であれば、[立教大学ボート部のインカレ全記録](https://rowingmania.jp/articles/univ-history-rikkyo/)に出場史と最高成績がまとまっています。
 
 ## 体育会学生向けの就活支援サービス
 

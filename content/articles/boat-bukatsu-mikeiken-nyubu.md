@@ -49,7 +49,7 @@ cta: none
 
 ## 大学ごとの戦績を調べてから選びたい人へ
 
-どの大学のボート部に注目するか迷っている場合は、大学別の年度別成績ページを見比べてみるのも一つの方法です。たとえば[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[東京大学ボート部のインカレ全記録](https://rowingmania.jp/universities/tokyo-u/)では、各大学の年度別の出場記録や決勝進出の実績を確認できます。また、直近の大会結果をまとめて見たい場合は[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から、種目別の成績を一覧で確認できます。
+どの大学のボート部に注目するか迷っている場合は、大学別の年度別成績ページを見比べてみるのも一つの方法です。たとえば[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[東京大学ボート部のインカレ全記録](https://rowingmania.jp/universities/tokyo-u/)では、各大学の年度別の出場記録や決勝進出の実績を確認できます。東京大学については、出場史と最高成績を文章でまとめた[東京大学ボート部のインカレ全記録](https://rowingmania.jp/articles/univ-history-tokyo-u/)もあわせて参考になります。また、直近の大会結果をまとめて見たい場合は[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から、種目別の成績を一覧で確認できます。
 
 ## まとめ
 
