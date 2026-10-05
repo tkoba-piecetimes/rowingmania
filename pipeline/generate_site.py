@@ -358,6 +358,8 @@ def md_inline(s):
     s = escape(s, quote=False)
     s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', s)
     s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+    # 内部リンク補強レーンの管理用マーカーのみ HTML コメントとして通す（本文には表示しない）
+    s = s.replace("&lt;!-- index-lane-link --&gt;", "<!-- index-lane-link -->")
     return s
 
 
@@ -937,6 +939,13 @@ def build_university_page(u, meta):
              f'<div class="stat"><span class="num">{u["final_appearances"]}</span>決勝進出回数</div>'
              f'<div class="stat"><span class="num">{len(u["years_active"])}</span>出場年度数</div>'
              '</div></section>')
+
+    # この大学の「インカレ全記録」記事がある場合のみ、記事への導線を1本置く
+    if (CONTENT / f"univ-history-{u['slug']}.md").exists():
+        body += (f'<p>{escape(name)}の出場史と最高成績を文章でまとめた'
+                 f'<a href="{rel}articles/univ-history-{u["slug"]}/index.html">'
+                 f'{escape(name)}ボート部のインカレ全記録</a>'
+                 '<!-- index-lane-link -->もあわせてご覧ください。</p>')
 
     rows = ""
     for year, code in sorted(u["records"].keys(), key=lambda yc: (-yc[0], EVENT_ORDER.index(yc[1]) if yc[1] in EVENT_ORDER else 99)):
