@@ -75,7 +75,7 @@ cta: none
 
 どの大学のボート部に入るか迷っている場合は、まず[大学のボート部はどう選ぶ？強豪校・初心者歓迎校の見分け方](../boat-bukatsu-daigaku-erabikata/index.html)で、確認しておきたいポイントを整理してみてください。女子の未経験入部については[女子は大学からボート部を始められる？](../boat-bukatsu-joshi-mikeiken-nyubu/index.html)で解説しています。
 
-大学ごとの戦績を調べたい場合は、補足として大学別の年度別成績ページを見比べる方法もあります。たとえば[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[東京大学ボート部のインカレ全記録](https://rowingmania.jp/universities/tokyo-u/)では、各大学の年度別の出場記録や決勝進出の実績を確認できます。東京大学については、出場史と最高成績を文章でまとめた[東京大学ボート部のインカレ全記録](https://rowingmania.jp/articles/univ-history-tokyo-u/)もあわせて参考になります。中国地方の国立大学では、[岡山大学ボート部の出場史と最高成績](https://rowingmania.jp/articles/univ-history-okayama-u/)が、未経験で入部先を検討する際の参考になります。<!-- index-lane-link -->また、直近の大会結果をまとめて見たい場合は[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から、種目別の成績を一覧で確認できます。
+大学ごとの戦績を調べたい場合は、補足として大学別の年度別成績ページを見比べる方法もあります。たとえば[早稲田大学ボート部のインカレ全記録](https://rowingmania.jp/universities/waseda/)や[東京大学ボート部のインカレ全記録](https://rowingmania.jp/universities/tokyo-u/)では、各大学の年度別の出場記録や決勝進出の実績を確認できます。東京大学については、出場史と最高成績を文章でまとめた[東京大学ボート部のインカレ全記録](https://rowingmania.jp/articles/univ-history-tokyo-u/)もあわせて参考になります。中国地方の国立大学では、[岡山大学ボート部の出場史と最高成績](https://rowingmania.jp/articles/univ-history-okayama-u/)が、未経験で入部先を検討する際の参考になります。北陸の国立大学では、[金沢大学ボート部のインカレ全記録](https://rowingmania.jp/articles/univ-history-kanazawa-u/)で2000〜2025年度の出場史を確認でき、未経験で入部先を比べる際の材料になります。<!-- index-lane-link -->また、直近の大会結果をまとめて見たい場合は[2025年度 全日本大学ローイング選手権の結果](https://rowingmania.jp/years/2025/)から、種目別の成績を一覧で確認できます。
 
 ## よくある質問
 
