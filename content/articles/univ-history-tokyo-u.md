@@ -217,6 +217,7 @@ cta: sponsor
 ## 関連リンク
 
 - [東京大学の大学別戦績ページ](../../universities/tokyo-u/index.html)
+- [一橋大学ボート部（端艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hitotsubashi/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2012年度 全日本大学ローイング選手権 結果](../../years/2012/index.html)
 - [2011年度 全日本大学ローイング選手権 結果](../../years/2011/index.html)
