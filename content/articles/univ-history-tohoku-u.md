@@ -229,6 +229,7 @@ cta: sponsor
 ## 関連リンク
 
 - [東北大学の大学別戦績ページ](../../universities/tohoku-u/index.html)
+- [仙台大学ボート部（漕艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-sendai/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2023年度 全日本大学ローイング選手権 結果](../../years/2023/index.html)
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)

@@ -218,6 +218,7 @@ cta: sponsor
 ## 関連リンク
 
 - [立命館大学の大学別戦績ページ](../../universities/ritsumeikan/index.html)
+- [龍谷大学ボート部（端艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-ryukoku/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
 

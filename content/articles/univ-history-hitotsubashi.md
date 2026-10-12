@@ -306,6 +306,7 @@ cta: sponsor
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)
 - [2018年度 全日本大学ローイング選手権 結果](../../years/2018/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
+- [茨城大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-ibaraki-u/index.html)（国立大学どうしで、出場史と最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 
