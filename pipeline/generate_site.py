@@ -222,6 +222,14 @@ def source_note(y):
 
 # ---------------------------------------------------------------- page shell
 
+def contact_cta(rel, location):
+    """データページ末尾の問い合わせ案内（自サイト内リンクのためPR表記なし）。
+    location: standings|schedule|match|team|result。クリックはGA4 contact_clickで計測。"""
+    return ('<p class="contact-cta">掲載内容の誤りや、試合・チームに関する情報提供は編集部までお知らせください。'
+            f'<a href="{rel}contact/index.html" data-cta="contact_click" data-cta-location="{location}" '
+            f'onclick="window.gtag&&gtag(\'event\',\'contact_click\',{{location:\'{location}\'}})">編集部に連絡する →</a></p>')
+
+
 NAV_ITEMS = [
     ("index.html", "トップ"),
     ("years/index.html", "年度一覧"),
@@ -342,7 +350,7 @@ CTA_VIEW_SCRIPT = """<script>
         var key = el.dataset.cta + '|' + el.dataset.position;
         if (seen[key]) return;
         seen[key] = true;
-        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position });
+        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position || el.dataset.ctaLocation });
         io.unobserve(el);
       });
     }, { threshold: 0.5 });
@@ -600,6 +608,9 @@ CONTACT_FORM_JS = """<script>
     var elements = form.elements;
     var i;
     for (i = 0; i < elements.length; i++) { elements[i].disabled = true; }
+    var submitBtn = document.getElementById('cf-submit');
+    var submitLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.textContent = '送信中…'; }
     msg.textContent = '';
     msg.className = 'form-message';
     fetch('__RELAY_URL__', {
@@ -610,6 +621,7 @@ CONTACT_FORM_JS = """<script>
       return res.json().catch(function () { return { ok: false }; });
     }).then(function (data) {
       if (data && data.ok) {
+        if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form: 'contact', inquiry_type: payload.type }); }
         form.style.display = 'none';
         msg.textContent = '送信しました。3営業日以内にご返信します。';
         msg.className = 'form-message form-message-ok';
@@ -617,9 +629,11 @@ CONTACT_FORM_JS = """<script>
         throw new Error('failed');
       }
     }).catch(function () {
+      if (typeof gtag === 'function') { gtag('event', 'contact_submit_error'); }
       msg.textContent = '送信に失敗しました。時間をおいてお試しください。';
       msg.className = 'form-message form-message-error';
       for (i = 0; i < elements.length; i++) { elements[i].disabled = false; }
+      if (submitBtn) { submitBtn.textContent = submitLabel; }
     });
   });
 })();
@@ -802,6 +816,7 @@ def build_year_page(y, prev_y, next_y, universities, meta):
                  f'<tbody>{race_rows}</tbody></table></div>')
     body += '</section>'
 
+    body += contact_cta(rel, "match")
     write_page(f"years/{year}",
                page(rel, f'{year}年度 全日本大学ローイング選手権 結果 | {SITE_NAME}', body, meta,
                     path=f"years/{year}/",
@@ -869,6 +884,7 @@ def build_event_page(code, ev, universities, meta):
                  '<div class="tbl"><table><thead><tr><th>#</th><th>大学</th><th>優勝回数</th></tr></thead>'
                  f'<tbody>{rows}</tbody></table></div></section>')
 
+    body += contact_cta(rel, "standings")
     write_page(f"events/{code}",
                page(rel, f'{ev["name"]} 歴代優勝校 | {SITE_NAME}', body, meta,
                     path=f"events/{code}/",
@@ -961,6 +977,7 @@ def build_university_page(u, meta):
              f'<tbody>{rows}</tbody></table></div>'
              '<p class="note">※「決勝結果」は決勝（A〜D）に進出した場合の着順・タイムです。決勝未進出の種目は到達ラウンドのみ表示しています。</p></section>')
 
+    body += contact_cta(rel, "team")
     body += build_support_block()
 
     write_page(f"universities/{u['slug']}",
@@ -1110,6 +1127,8 @@ table.detail td { white-space:normal; }
 .breadcrumb a { color:var(--sub); }
 .lead { color:var(--sub); }
 .note { color:var(--sub); font-size:.8rem; }
+.contact-cta { margin:1.4rem 0 .6rem; padding:.55rem .8rem; border:1px solid var(--line); border-radius:6px; font-size:.8rem; color:var(--sub); }
+.contact-cta a { margin-left:.5em; white-space:nowrap; }
 .more { margin:.9rem 0 0; }
 .cta { display:inline-block; background:var(--accent); color:var(--navy); font-weight:700;
   font-size:.85rem; text-decoration:none; padding:.5em 1.1em; border-radius:8px; }
