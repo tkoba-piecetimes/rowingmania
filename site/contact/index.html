@@ -25,7 +25,11 @@
 </header>
 
 <main>
-<h1>お問い合わせ</h1><p class="lead">取材・情報提供、掲載・広告のご相談を受け付けています。3営業日以内にメールでご返信します。</p><noscript><p class="form-message">このフォームのご利用にはJavaScriptの有効化が必要です。</p></noscript>
+<h1>お問い合わせ</h1><p class="lead">取材・情報提供、掲載・広告のご相談を受け付けています。3営業日以内にメールでご返信します。</p><div class="contact-offer">
+<h2>部・チームの紹介記事を無料で作成します</h2>
+<p>部員・マネージャー・OBOGの方からのご依頼を受け付けています。いただいた情報をもとに編集部が紹介記事を作成し、当サイトに掲載します。費用はかかりません。ご依頼は順次対応します。</p>
+<p class="note">下のフォームで種別『取材・情報提供』を選び、大学名・部名と『紹介記事希望』とお書きください。</p>
+</div><noscript><p class="form-message">このフォームのご利用にはJavaScriptの有効化が必要です。</p></noscript>
 <form id="contact-form" class="contact-form">
   <div class="form-row">
     <label for="cf-name">お名前<span class="req">必須</span></label>
@@ -63,6 +67,12 @@
   var form = document.getElementById('contact-form');
   if (!form) return;
   var msg = document.getElementById('cf-message');
+  var offerFeature = false;
+  try { offerFeature = new URLSearchParams(window.location.search).get('type') === 'feature'; } catch (e) {}
+  if (offerFeature) {
+    form.type.value = '取材・情報提供';
+    if (!form.body.value) { form.body.value = '【紹介記事希望】\n大学名・部名：\n'; }
+  }
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     var payload = {
@@ -77,6 +87,9 @@
     var elements = form.elements;
     var i;
     for (i = 0; i < elements.length; i++) { elements[i].disabled = true; }
+    var submitBtn = document.getElementById('cf-submit');
+    var submitLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.textContent = '送信中…'; }
     msg.textContent = '';
     msg.className = 'form-message';
     fetch('https://mania-contact.vercel.app/api/contact', {
@@ -87,6 +100,11 @@
       return res.json().catch(function () { return { ok: false }; });
     }).then(function (data) {
       if (data && data.ok) {
+        if (typeof gtag === 'function') {
+          var lead = { form: 'contact', inquiry_type: payload.type };
+          if (offerFeature) { lead.offer = 'feature'; }
+          gtag('event', 'generate_lead', lead);
+        }
         form.style.display = 'none';
         msg.textContent = '送信しました。3営業日以内にご返信します。';
         msg.className = 'form-message form-message-ok';
@@ -94,9 +112,11 @@
         throw new Error('failed');
       }
     }).catch(function () {
+      if (typeof gtag === 'function') { gtag('event', 'contact_submit_error'); }
       msg.textContent = '送信に失敗しました。時間をおいてお試しください。';
       msg.className = 'form-message form-message-error';
       for (i = 0; i < elements.length; i++) { elements[i].disabled = false; }
+      if (submitBtn) { submitBtn.textContent = submitLabel; }
     });
   });
 })();
@@ -107,7 +127,7 @@
     <p class="footer-brand">ローイングマニア</p>
     <nav class="footer-nav"><a href="../index.html">トップ</a><a href="../years/index.html">年度一覧</a><a href="../events/index.html">種目一覧</a><a href="../universities/index.html">大学一覧</a><a href="../contact/index.html">お問い合わせ</a></nav>
     <p>大会データ出典: <a href="https://www.jara.or.jp/race/">日本ローイング協会 (JARA)</a>
-    （情報更新日: 2026-10-12）</p>
+    （情報更新日: 2026-10-13）</p>
     <p>ローイングマニアは全日本大学ローイング選手権（インカレ）の記録アーカイブサイトです。掲載の着順・タイムは出典元の公表データを編集部で整形したものです。個人の氏名・身長・体重等は掲載していません。確定情報は日本ローイング協会公式サイトをご確認ください。</p>
   </div>
 </footer>
@@ -136,7 +156,7 @@
         var key = el.dataset.cta + '|' + el.dataset.position;
         if (seen[key]) return;
         seen[key] = true;
-        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position });
+        window.gtag && gtag('event', 'cta_view', { cta: el.dataset.cta, position: el.dataset.position || el.dataset.ctaLocation });
         io.unobserve(el);
       });
     }, { threshold: 0.5 });

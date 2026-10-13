@@ -73,6 +73,11 @@ table.detail td { white-space:normal; }
 .breadcrumb a { color:var(--sub); }
 .lead { color:var(--sub); }
 .note { color:var(--sub); font-size:.8rem; }
+.contact-cta { margin:1.4rem 0 .6rem; padding:.55rem .8rem; border:1px solid var(--line); border-radius:6px; font-size:.8rem; color:var(--sub); }
+.contact-cta a { margin-left:.5em; white-space:nowrap; }
+.contact-offer { margin:1.2rem 0; padding:.7rem .9rem; border:1px solid var(--line); border-radius:6px; font-size:.9rem; }
+.contact-offer h2 { font-size:1rem; margin:0 0 .4rem; }
+.contact-offer p { margin:.3rem 0; }
 .more { margin:.9rem 0 0; }
 .cta { display:inline-block; background:var(--accent); color:var(--navy); font-weight:700;
   font-size:.85rem; text-decoration:none; padding:.5em 1.1em; border-radius:8px; }
