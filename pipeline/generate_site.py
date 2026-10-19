@@ -30,6 +30,9 @@ RESULTS = DATA / "results"
 SITE = ROOT / "site"
 ASSETS = ROOT / "assets"
 CONTENT = ROOT / "content" / "articles"
+DIAGRAMS = ASSETS / "diagrams"          # 記事内SVG図（![キャプション](diagram:slug)）
+GLOSSARY_FILE = DATA / "glossary.json"  # 用語辞典（自動説明）。無ければ機能オフ
+GLOSSARY_MAX_PER_ARTICLE = 20
 
 SITE_BASE = "https://rowingmania.jp/"
 GA_MEASUREMENT_ID = "G-2VXCQKLYZ8"  # GA4「ローイングマニア」専用プロパティ（プロパティID 549897625）
@@ -378,7 +381,121 @@ def md_inline(s):
     return s
 
 
-def md_to_html(md):
+DIAGRAM_RE = re.compile(r"^!\[([^\]]*)\]\(diagram:([a-z0-9][a-z0-9-]*)\)$")
+
+
+def svg_size(slug, article=""):
+    """assets/diagrams/<slug>.svg の viewBox から (幅, 高さ) を返す。無ければビルド失敗。"""
+    f = DIAGRAMS / f"{slug}.svg"
+    if not f.exists():
+        raise ValueError(f"図 diagram:{slug} が見つかりません（{f}）記事: {article or '(不明)'}")
+    head = f.read_text(encoding="utf-8")[:2000]
+    m = re.search(r'viewBox\s*=\s*"\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)\s*"', head)
+    if not m:
+        return None
+    fmt = lambda v: str(int(float(v))) if float(v) == int(float(v)) else v
+    return fmt(m.group(1)), fmt(m.group(2))
+
+
+def diagram_figure(caption, slug, rel, article=""):
+    size = svg_size(slug, article)
+    wh = f' width="{size[0]}" height="{size[1]}"' if size else ""
+    cap = escape(caption)
+    return (f'<figure class="diagram"><img src="{rel}assets/diagrams/{slug}.svg" alt="{cap}" '
+            f'loading="lazy"{wh}><figcaption>{cap}</figcaption></figure>')
+
+
+def load_glossary_terms():
+    """data/glossary.json の terms。ファイルが無ければ None（機能オフ）。"""
+    if not GLOSSARY_FILE.exists():
+        return None
+    return json.loads(GLOSSARY_FILE.read_text(encoding="utf-8")).get("terms", [])
+
+
+_TAG_RE = re.compile(r"<[^>]*>")
+_VOID = {"img", "br", "hr", "input", "meta", "link", "wbr"}
+_SKIP_ANCESTORS = {"h1", "h2", "h3", "h4", "h5", "h6", "a", "th", "svg", "script", "style", "button"}
+_TEXT_ANCESTORS = {"p", "li", "td", "figcaption"}
+_KATA = re.compile(r"[ァ-ヺーヽヾ]")  # 中黒「・」や「゠」は区切りなので含めない
+_ALNUM = re.compile(r"[A-Za-z0-9]")
+
+
+def _edge_ok(text, start, end):
+    """カタカナ/英数字の語は、前後が同種の文字なら別の語の一部とみなしてマッチさせない。"""
+    first, last = text[start], text[end - 1]
+    prev = text[start - 1] if start > 0 else ""
+    nxt = text[end] if end < len(text) else ""
+    for ch, nb in ((first, prev), (last, nxt)):
+        if not nb:
+            continue
+        if _KATA.match(ch) and _KATA.match(nb):
+            return False
+        if _ALNUM.match(ch) and _ALNUM.match(nb):
+            return False
+    return True
+
+
+def _term_span(t, article="", link=False):
+    tip = escape(t["short"], quote=False)
+    img = ""
+    if t.get("diagram"):
+        size = svg_size(t["diagram"], article or f'glossary:{t["id"]}')
+        wh = f' width="{size[0]}" height="{size[1]}"' if size else ""
+        img = (f'<img src="{{rel}}assets/diagrams/{t["diagram"]}.svg" alt="" loading="lazy"{wh}>')
+    more = (f'<a class="term-more" href="{{rel}}glossary/#term-{escape(t["id"])}">用語辞典で見る</a>'
+            if link else "")
+    return (f'<span class="term" tabindex="0" role="button" aria-expanded="false" data-term="{escape(t["id"])}">'
+            f'{{text}}<span class="term-tip" role="tooltip">{tip}{img}{more}</span></span>')
+
+
+def apply_glossary(html, terms, rel="", max_terms=GLOSSARY_MAX_PER_ARTICLE, article="", glossary_link=False):
+    """本文HTML中、各用語の最初の出現1か所だけを .term で包む。"""
+    if not terms:
+        return html
+    by_form = {}
+    for t in terms:
+        for form in [t["term"], *t.get("aliases", [])]:
+            by_form.setdefault(escape(form, quote=False), t)
+    forms = sorted(by_form, key=len, reverse=True)
+    pat = re.compile("|".join(re.escape(f) for f in forms))
+    used, stack, out, pos = set(), [], [], 0
+
+    def convert(text):
+        res, last = [], 0
+        for m in pat.finditer(text):
+            t = by_form[m.group(0)]
+            if t["id"] in used or len(used) >= max_terms or not _edge_ok(text, m.start(), m.end()):
+                continue
+            used.add(t["id"])
+            span = _term_span(t, article, glossary_link).replace("{rel}", rel)
+            res.append(text[last:m.start()])
+            res.append(span.replace("{text}", m.group(0)))
+            last = m.end()
+        res.append(text[last:])
+        return "".join(res)
+
+    for m in _TAG_RE.finditer(html):
+        text = html[pos:m.start()]
+        if text:
+            ok = any(x in _TEXT_ANCESTORS for x in stack) and not any(x in _SKIP_ANCESTORS for x in stack)
+            out.append(convert(text) if ok else text)
+        tag = m.group(0)
+        out.append(tag)
+        pos = m.end()
+        tm = re.match(r"<(/?)([A-Za-z][A-Za-z0-9]*)", tag)
+        if tm:
+            name = tm.group(2).lower()
+            if tm.group(1):
+                if name in stack:
+                    while stack and stack.pop() != name:
+                        pass
+            elif name not in _VOID and not tag.endswith("/>"):
+                stack.append(name)
+    out.append(html[pos:])
+    return "".join(out)
+
+
+def md_to_html(md, rel="", article=""):
     out, para = [], []
     in_ul = in_ol = in_table = False
 
@@ -402,6 +519,11 @@ def md_to_html(md):
 
     for line in md.splitlines():
         s = line.strip()
+        dm = DIAGRAM_RE.match(s)
+        if dm:
+            flush_para(); close_blocks()
+            out.append(diagram_figure(dm.group(1), dm.group(2), rel, article))
+            continue
         if s.startswith("|") and s.endswith("|") and len(s) > 1:
             flush_para()
             if in_ul or in_ol:
@@ -539,6 +661,7 @@ def build_articles(articles, meta):
                     path="articles/",
                     desc="全日本大学ローイング選手権の観戦ガイド・種目解説・データの読み方などの記事。"))
     rel = "../../"
+    glossary_terms = load_glossary_terms()
     for a in articles:
         others = [x for x in articles if x["slug"] != a["slug"]][:3]
         related = "".join(
@@ -549,7 +672,14 @@ def build_articles(articles, meta):
         body += (f'<p class="cat-line"><span class="cat">{escape(a["category"])}</span>'
                  f' <span class="note">{escape(a["date"])}</span></p>')
         body += f'<h1>{escape(a["title"])}</h1>'
-        body += f'<div class="article">{md_to_html(a["body"])}</div>'
+        if a.get("level") == "入門":
+            body += '<p class="level-badge">はじめての方向け</p>'
+        art_html = md_to_html(a["body"], rel, a["slug"])
+        if glossary_terms and a.get("glossary", "").lower() != "off":
+            art_html = apply_glossary(art_html, glossary_terms, rel, article=a["slug"])
+        body += f'<div class="article">{art_html}</div>'
+        if 'class="term"' in art_html:
+            body += TERM_TIP_SCRIPT
         body += build_article_cta_band(a)
         body += intern_cta_band()
         body += f'<section><h2>あわせて読む</h2><ul>{related}</ul></section>'
@@ -1077,6 +1207,34 @@ FAVICON = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 </svg>
 """
 
+TERM_TIP_SCRIPT = """<script>
+(function(){
+ 'use strict';
+ var terms=[].slice.call(document.querySelectorAll('.term')); if(!terms.length)return;
+ var mobile=matchMedia('(max-width:640px)');
+ function place(t){
+  var tip=t.querySelector('.term-tip'); if(!tip||mobile.matches)return;
+  t.style.setProperty('--term-shift','0px');
+  var r=tip.getBoundingClientRect(),w=document.documentElement.clientWidth,m=8,shift=0;
+  if(r.right>w-m)shift=w-m-r.right; if(r.left+shift<m)shift=m-r.left;
+  t.style.setProperty('--term-shift',shift+'px');
+ }
+ function close(t){t.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+ function closeAll(except){terms.forEach(function(t){if(t!==except)close(t);});}
+ function open(t){closeAll(t);t.classList.add('is-open');t.setAttribute('aria-expanded','true');place(t);}
+ function toggle(t){t.classList.contains('is-open')?close(t):open(t);}
+ terms.forEach(function(t){
+  t.addEventListener('click',function(e){if(e.target.closest('.term-tip'))return;toggle(t);});
+  t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(t);}});
+  t.addEventListener('mouseenter',function(){place(t);});
+  t.addEventListener('focus',function(){place(t);});
+ });
+ document.addEventListener('click',function(e){if(!e.target.closest('.term'))closeAll();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+})();
+</script>"""
+
+
 STYLE = """
 :root {
   --navy:#071a33; --navy-2:#1d3a63; --accent:#b5652a; --accent-dark:#8f4e1f;
@@ -1245,6 +1403,35 @@ button.cta:disabled { opacity:.55; cursor:default; }
 .form-message { margin-top:1rem; font-weight:700; }
 .form-message-ok { color:var(--win, #15803d); }
 .form-message-error { color:var(--loss, #b91c1c); }
+
+/* ---- 読者レベル配慮: 図・用語の自動説明・入門バッジ ---- */
+.level-badge { display:inline-block; margin:0 0 10px; padding:3px 12px; border-radius:999px;
+  background:var(--accent-soft); color:var(--accent-dark); border:1px solid var(--accent);
+  font-size:.75rem; font-weight:800; letter-spacing:.04em; }
+.article figure.diagram { margin:1.4em auto; text-align:center; }
+.article figure.diagram img { max-width:100%; height:auto; display:block; margin:0 auto;
+  border:1px solid var(--line); border-radius:6px; background:#fff; }
+.article figure.diagram figcaption { margin-top:6px; font-size:.78rem; color:var(--sub); line-height:1.6; }
+.term { position:relative; border-bottom:1px dotted var(--accent-dark); color:inherit; cursor:help; text-decoration:none; }
+.term:hover, .term.is-open { background:var(--accent-soft); }
+.term:focus-visible { outline:2px solid var(--accent-dark); outline-offset:2px; }
+.term-tip { display:none; position:absolute; z-index:1000; left:var(--term-shift,0); top:calc(100% + 6px);
+  width:min(300px,calc(100vw - 24px)); padding:10px 12px; background:var(--surface); color:var(--ink);
+  border:1px solid var(--line); border-radius:8px; box-shadow:0 6px 20px rgba(7,26,51,.18);
+  font-size:.82rem; font-weight:400; line-height:1.7; text-align:left; cursor:auto; }
+.term-tip img { display:block; max-width:100%; height:auto; margin-top:8px; border:1px solid var(--line); border-radius:4px; }
+.term-more { display:block; margin-top:8px; font-size:.75rem; font-weight:700; color:var(--accent-dark); text-decoration:underline; }
+.term.is-open > .term-tip { display:block; }
+@media (hover:hover) { .term:hover > .term-tip, .term:focus-visible > .term-tip { display:block; } }
+@media (max-width:640px) {
+  .term { position:static; }
+  .term-tip { position:fixed; left:12px; right:12px; top:auto; bottom:62px; width:auto; max-height:50vh;
+    overflow:auto; z-index:1000; font-size:.9rem; }
+}
+.gloss-fig { display:block; max-width:260px; width:100%; height:auto; margin-top:8px;
+  border:1px solid var(--line); border-radius:4px; background:#fff; }
+tr[id^="term-"] { scroll-margin-top:80px; }
+tr[id^="term-"]:target { background:var(--accent-soft); }
 """
 
 
@@ -1271,7 +1458,9 @@ def main():
     (SITE / "assets" / "favicon.svg").write_text(FAVICON, encoding="utf-8")
     if ASSETS.exists():
         for f in ASSETS.iterdir():
-            if f.is_file():
+            if f.is_dir():
+                shutil.copytree(f, SITE / "assets" / f.name)
+            elif f.is_file():
                 shutil.copy(f, SITE / "assets" / f.name)
 
     build_portal(years, events, universities, articles, global_meta)

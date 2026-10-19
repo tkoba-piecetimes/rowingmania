@@ -1,0 +1,401 @@
+{
+  "terms": [
+    {
+      "id": "scull",
+      "term": "スカル",
+      "aliases": [],
+      "short": "1人が左右に1本ずつ、合計2本のオールを持って漕ぐ方式。またその方式の艇。",
+      "diagram": "rowing-scull-vs-sweep",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "sweep",
+      "term": "スイープ",
+      "aliases": [],
+      "short": "1人が1本のオールを持ち、体の片側だけで漕ぐ方式。またその方式の艇。",
+      "diagram": "rowing-scull-vs-sweep",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "coxswain",
+      "term": "コックス",
+      "aliases": [
+        "舵手"
+      ],
+      "short": "艇に乗って舵を操作し、漕ぐ人に声で指示を出す人。自分ではオールを持たない。",
+      "diagram": "rowing-eight-seating",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "cox-with",
+      "term": "舵手つき",
+      "aliases": [
+        "舵手付き"
+      ],
+      "short": "舵を取る専任の人が艇に乗る種目。種目コードでは「+」で表す。",
+      "diagram": "rowing-event-codes",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "cox-without",
+      "term": "舵手なし",
+      "aliases": [],
+      "short": "舵を取る専任の人が艇に乗らない種目。種目コードでは「-」で表す。",
+      "diagram": "rowing-event-codes",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "rower",
+      "term": "漕手",
+      "aliases": [
+        "ローワー",
+        "漕ぎ手"
+      ],
+      "short": "オールを持って艇を前に進める選手。舵を取るだけの人は含めない。",
+      "diagram": "rowing-eight-seating",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "crew",
+      "term": "クルー",
+      "aliases": [],
+      "short": "1つの艇に乗る全員のまとまり。レースに出る単位にもなる。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "single-scull",
+      "term": "シングルスカル",
+      "aliases": [
+        "1x"
+      ],
+      "short": "1人乗りの艇。1人が左右2本のオールを持つ。種目コードは「1x」。",
+      "diagram": "rowing-boat-types",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "double-scull",
+      "term": "ダブルスカル",
+      "aliases": [
+        "2x"
+      ],
+      "short": "2人乗りの艇。2人とも左右2本のオールを持つ。種目コードは「2x」。",
+      "diagram": "rowing-boat-types",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "quad",
+      "term": "クォドルプル",
+      "aliases": [
+        "クオドルプル",
+        "4x",
+        "4x+"
+      ],
+      "short": "4人乗りで、全員が左右2本のオールを持つ艇。種目コードは「4x」。",
+      "diagram": "rowing-boat-types",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "pair",
+      "term": "ペア",
+      "aliases": [
+        "2-",
+        "2+"
+      ],
+      "short": "2人乗りで、1人1本のオールを持つ艇。舵を取る人が乗る型もある。",
+      "diagram": "rowing-boat-types",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "four",
+      "term": "フォア",
+      "aliases": [
+        "4-",
+        "4+"
+      ],
+      "short": "4人乗りで、1人1本のオールを持つ艇。舵を取る人が乗る型もある。",
+      "diagram": "rowing-boat-types",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "eight",
+      "term": "エイト",
+      "aliases": [
+        "8+"
+      ],
+      "short": "漕ぐ人8人と舵を取る人1人が乗る最大級の艇。1人1本のオールを持つ。",
+      "diagram": "rowing-eight-seating",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "stroke",
+      "term": "ストローク",
+      "aliases": [
+        "整調"
+      ],
+      "short": "艇の最後尾寄りに座り、全員の漕ぐリズムを決める漕手。漕ぐ1回分の動作も指す。",
+      "diagram": "rowing-eight-seating",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "bow",
+      "term": "バウ",
+      "aliases": [],
+      "short": "艇の先頭（進む向きの先端）。またその付近に座る漕手のこと。",
+      "diagram": "rowing-eight-seating",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "catch",
+      "term": "キャッチ",
+      "aliases": [],
+      "short": "オールの先を水に入れ、水をつかむ瞬間。1回の漕ぎの始まりにあたる。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2423.html"
+    },
+    {
+      "id": "drive",
+      "term": "ドライブ",
+      "aliases": [],
+      "short": "水に入れたオールを脚などの力で引き、艇を前に進める局面。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "finish",
+      "term": "フィニッシュ",
+      "aliases": [],
+      "short": "漕ぎの終わりの局面。水を押し終えてオールが水面から出る直後。ゴールの意味でも使う。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2423.html"
+    },
+    {
+      "id": "recovery",
+      "term": "リカバリー",
+      "aliases": [
+        "フォワード"
+      ],
+      "short": "オールを水から出したあと、次の1本に向けて体とシートを前へ戻す局面。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2423.html"
+    },
+    {
+      "id": "feather",
+      "term": "フェザー",
+      "aliases": [],
+      "short": "オールの先を水面と平行に寝かせること。空気や波の抵抗を減らすために行う。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "square",
+      "term": "スクエア",
+      "aliases": [],
+      "short": "オールの先を水面に対して垂直に立てた状態。水をつかむ直前に行う。",
+      "diagram": "rowing-stroke-cycle",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "rate",
+      "term": "レート",
+      "aliases": [
+        "ピッチ"
+      ],
+      "short": "1分間に漕ぐ回数。数字が大きいほど速いペースで漕いでいる。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2423.html"
+    },
+    {
+      "id": "spurt",
+      "term": "スパート",
+      "aliases": [],
+      "short": "レース終盤などに、漕ぐ回数と力を一気に上げて加速すること。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "blade",
+      "term": "ブレード",
+      "aliases": [],
+      "short": "オールの先にある、水に入って水をとらえる、平たい形をした部分。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "rigger",
+      "term": "リガー",
+      "aliases": [],
+      "short": "艇の外側に張り出した骨組み。オールを支える部品を取り付けている。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "clutch",
+      "term": "クラッチ",
+      "aliases": [],
+      "short": "オールを支える部品。リガーの先に付いていて、オールが回る支点になる。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "stretcher",
+      "term": "ストレッチャー",
+      "aliases": [],
+      "short": "漕ぐ人が足をかける板。靴が固定されていて、脚で押す力を艇に伝える。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "seat",
+      "term": "シート",
+      "aliases": [],
+      "short": "漕ぐ人が座る席。下に車輪があり、脚の動きに合わせて前後に動く。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.ntt-east.co.jp/symbol/boat/contents/howto.html"
+    },
+    {
+      "id": "rigging",
+      "term": "リギング",
+      "aliases": [],
+      "short": "オールや座席などの位置・角度を、漕ぐ人の体格に合わせて調整すること。",
+      "diagram": "rowing-boat-parts",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "ergometer",
+      "term": "エルゴメーター",
+      "aliases": [
+        "エルゴ"
+      ],
+      "short": "陸の上で漕ぐ動作を再現するトレーニング機器。タイムの計測にも使う。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "shell",
+      "term": "シェル艇",
+      "aliases": [],
+      "short": "速さを追求した、細く薄い船体の競技用の艇。安定しにくく、おもに経験者が乗る。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "knuckle",
+      "term": "ナックル艇",
+      "aliases": [
+        "ナックル"
+      ],
+      "short": "初心者向けに作られた、幅が広く安定しやすい艇。体験会や入部直後の練習でよく使う。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "boathouse",
+      "term": "艇庫",
+      "aliases": [
+        "ボートハウス"
+      ],
+      "short": "艇やオールなどの用具を保管する建物。部の練習の拠点にもなる。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "regatta",
+      "term": "レガッタ",
+      "aliases": [],
+      "short": "ボートのレースを集めて行う大会のこと。競漕会とも呼ばれる。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "heat",
+      "term": "予選",
+      "aliases": [
+        "Heat"
+      ],
+      "short": "最初に行う組分けのレース。上位の艇が次のラウンドに進む。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "repechage",
+      "term": "敗者復活戦",
+      "aliases": [
+        "Repechage"
+      ],
+      "short": "予選で勝ち上がれなかった艇に、もう一度チャンスを与えるレース。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "quarterfinal",
+      "term": "準々決勝",
+      "aliases": [
+        "Quarter finals"
+      ],
+      "short": "出場する艇が多い種目で、準決勝の前に行うラウンド（勝ち上がり戦）。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "semifinal",
+      "term": "準決勝",
+      "aliases": [
+        "SemiFinal"
+      ],
+      "short": "決勝に進む艇を決めるラウンド。上位の艇が優勝を争う決勝に進む。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "final-a",
+      "term": "決勝A",
+      "aliases": [
+        "Final A"
+      ],
+      "short": "優勝を決める最上位の決勝。優勝するにはこのレースに進む必要がある。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "final-b",
+      "term": "決勝B",
+      "aliases": [
+        "Final B"
+      ],
+      "short": "優勝を決める決勝に進めなかった艇が、下位の順位を決めるレース。",
+      "diagram": "rowing-race-rounds",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "event-code",
+      "term": "種目コード",
+      "aliases": [],
+      "short": "「m8+」のように、性別・人数・オールの本数・舵を取る人の有無を表す記号。",
+      "diagram": "rowing-event-codes",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "lane",
+      "term": "レーン",
+      "aliases": [],
+      "short": "レースで各艇に割り当てられる、水上の自分専用の走路。艇ごとに番号が付いている。",
+      "diagram": "rowing-race-course",
+      "source": "https://www.jara.or.jp/about.html"
+    },
+    {
+      "id": "split",
+      "term": "スプリット",
+      "aliases": [],
+      "short": "コースの途中（500mごとなど）を通過した時点のタイム。",
+      "diagram": "rowing-race-course",
+      "source": "https://www.jara.or.jp/race/2025/2025intercollege.html"
+    },
+    {
+      "id": "rudder",
+      "term": "ラダー",
+      "aliases": [],
+      "short": "艇の進む向きを変えるための、水中にある舵（かじ）の板。舵を取る人が操作する。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    },
+    {
+      "id": "jotei",
+      "term": "乗艇",
+      "aliases": [],
+      "short": "艇に実際に乗り、水上で漕ぐこと。陸上でのトレーニングと区別して使う。",
+      "source": "https://www.town.aichi-togo.lg.jp/soshikikarasagasu/shogaigakushuka/gyomuannai/2/3/2424.html"
+    }
+  ]
+}

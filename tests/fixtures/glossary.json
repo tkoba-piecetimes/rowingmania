@@ -1,0 +1,5 @@
+{"terms":[
+{"id":"bind","term":"バインド","aliases":["バインディング"],"short":"腕で味方や相手の体をつかんで組むこと。","diagram":"test-fig","source":"https://example.com"},
+{"id":"lock","term":"ロック","aliases":[],"short":"スクラムの2列目に入る選手。","source":"https://example.com"},
+{"id":"scrum","term":"スクラム","aliases":[],"short":"両チーム8人が組み合って再開する形。","source":"https://example.com"}
+]}
