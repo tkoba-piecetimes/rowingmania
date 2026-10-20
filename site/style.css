@@ -166,3 +166,32 @@ button.cta:disabled { opacity:.55; cursor:default; }
 .form-message { margin-top:1rem; font-weight:700; }
 .form-message-ok { color:var(--win, #15803d); }
 .form-message-error { color:var(--loss, #b91c1c); }
+
+/* ---- 読者レベル配慮: 図・用語の自動説明・入門バッジ ---- */
+.level-badge { display:inline-block; margin:0 0 10px; padding:3px 12px; border-radius:999px;
+  background:var(--accent-soft); color:var(--accent-dark); border:1px solid var(--accent);
+  font-size:.75rem; font-weight:800; letter-spacing:.04em; }
+.article figure.diagram { margin:1.4em auto; text-align:center; }
+.article figure.diagram img { max-width:100%; height:auto; display:block; margin:0 auto;
+  border:1px solid var(--line); border-radius:6px; background:#fff; }
+.article figure.diagram figcaption { margin-top:6px; font-size:.78rem; color:var(--sub); line-height:1.6; }
+.term { position:relative; border-bottom:1px dotted var(--accent-dark); color:inherit; cursor:help; text-decoration:none; }
+.term:hover, .term.is-open { background:var(--accent-soft); }
+.term:focus-visible { outline:2px solid var(--accent-dark); outline-offset:2px; }
+.term-tip { display:none; position:absolute; z-index:1000; left:var(--term-shift,0); top:calc(100% + 6px);
+  width:min(300px,calc(100vw - 24px)); padding:10px 12px; background:var(--surface); color:var(--ink);
+  border:1px solid var(--line); border-radius:8px; box-shadow:0 6px 20px rgba(7,26,51,.18);
+  font-size:.82rem; font-weight:400; line-height:1.7; text-align:left; cursor:auto; }
+.term-tip img { display:block; max-width:100%; height:auto; margin-top:8px; border:1px solid var(--line); border-radius:4px; }
+.term-more { display:block; margin-top:8px; font-size:.75rem; font-weight:700; color:var(--accent-dark); text-decoration:underline; }
+.term.is-open > .term-tip { display:block; }
+@media (hover:hover) { .term:hover > .term-tip, .term:focus-visible > .term-tip { display:block; } }
+@media (max-width:640px) {
+  .term { position:static; }
+  .term-tip { position:fixed; left:12px; right:12px; top:auto; bottom:62px; width:auto; max-height:50vh;
+    overflow:auto; z-index:1000; font-size:.9rem; }
+}
+.gloss-fig { display:block; max-width:260px; width:100%; height:auto; margin-top:8px;
+  border:1px solid var(--line); border-radius:4px; background:#fff; }
+tr[id^="term-"] { scroll-margin-top:80px; }
+tr[id^="term-"]:target { background:var(--accent-soft); }
