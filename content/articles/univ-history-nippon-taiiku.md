@@ -252,6 +252,7 @@ cta: sponsor
 - [日本大学ボート部（端艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nihon-u/index.html)
 - [仙台大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-sendai/index.html)
 - [鹿屋体育大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-kanoya-taiiku/index.html)
+- [日本女子体育大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nihonjoshi-taiiku/index.html)（同じ体育系の大学として、日本女子体育大学ボート部のインカレ出場史を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2024年度 全日本大学ローイング選手権 結果](../../years/2024/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
