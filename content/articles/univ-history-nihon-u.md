@@ -238,6 +238,7 @@ cta: sponsor
 
 - [日本大学の大学別戦績ページ](../../universities/nihon-u/index.html)
 - [インカレボート通算優勝回数ランキング](../../articles/incare-boat-yusho-ranking/index.html)
+- [日本医科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nippon-ika/index.html)（同じ「日本」を冠する大学として、出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [大学ボート部 強豪校 地区別まとめ｜インカレ25大会の全国勢力図](../../articles/daigaku-boat-bu-kyougoko-chikubetsu/index.html)
 - [早稲田大学ボート部（漕艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-waseda/index.html)
 - [明治大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-meiji/index.html)

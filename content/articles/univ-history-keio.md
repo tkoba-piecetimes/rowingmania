@@ -260,6 +260,7 @@ cta: sponsor
 
 - [慶應義塾大学の大学別戦績ページ](../../universities/keio/index.html)
 - [早稲田大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-waseda/index.html)
+- [成城大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-seijo/index.html)（同じ東京の私立大学として、出場史の違いを見比べたいときに）<!-- index-lane-link -->
 - [早慶レガッタ観戦ガイド](../../articles/soukei-regatta-kengaku-guide/index.html)
 - [一橋大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hitotsubashi/index.html)
 - [明治大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-meiji/index.html)

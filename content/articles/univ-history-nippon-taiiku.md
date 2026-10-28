@@ -248,6 +248,7 @@ cta: sponsor
 ## 関連リンク
 
 - [日本体育大学の大学別戦績ページ](../../universities/nippon-taiiku/index.html)
+- [日本医科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nippon-ika/index.html)（同じ東京の「日本」を冠する大学として、出場史を見比べたいときに）<!-- index-lane-link -->
 - [大学ボート部 強豪校 地区別まとめ｜インカレ25大会の全国勢力図](../../articles/daigaku-boat-bu-kyougoko-chikubetsu/index.html)
 - [日本大学ボート部（端艇部）のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nihon-u/index.html)
 - [仙台大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-sendai/index.html)

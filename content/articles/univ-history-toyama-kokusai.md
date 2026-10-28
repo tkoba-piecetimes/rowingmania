@@ -234,6 +234,7 @@ cta: sponsor
 
 - [富山国際大学の大学別戦績ページ](../../universities/toyama-kokusai/index.html)
 - [法政大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hosei/index.html)
+- [大阪公立大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-osaka-metropolitan/index.html)（地方の大学と大都市圏の大学で、インカレ出場史の違いを見比べたいときに）<!-- index-lane-link -->
 - [京都大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-kyoto-u/index.html)
 - [東京経済大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-tokyo-keizai/index.html)
 - [大学ボート部は減っている？インカレ出場校数25年の推移](../../articles/daigaku-boat-bu-shutsujo-kosu-suii/index.html)

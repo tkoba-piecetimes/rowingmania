@@ -244,6 +244,7 @@ cta: sponsor
 
 - [東京経済大学の大学別戦績ページ](../../universities/tokyo-keizai/index.html)
 - [法政大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hosei/index.html)
+- [滋賀大学経済学部ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shiga-daigaku-keizaigakubu/index.html)（同じ経済系の学部として、出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [京都大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-kyoto-u/index.html)
 - [富山国際大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-toyama-kokusai/index.html)
 - [大学ボート部は減っている？インカレ出場校数25年の推移](../../articles/daigaku-boat-bu-shutsujo-kosu-suii/index.html)
