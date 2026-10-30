@@ -115,6 +115,7 @@ cta: sponsor
 
 - [鹿屋体育大学の大学別戦績ページ](../../universities/kanoya-taiiku/index.html)
 - [大阪公立大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-osaka-metropolitan/index.html)（同じ公立・国立系の大学として、出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [熊本学園大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-kumamoto-gakuen/index.html)（同じ九州の大学として、出場史や決勝進出の傾向を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2023年度 全日本大学ローイング選手権 結果](../../years/2023/index.html)
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)

@@ -115,6 +115,7 @@ cta: sponsor
 - [学習院大学の大学別戦績ページ](../../universities/gakushuin/index.html)
 - [成城大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-seijo/index.html)（同じ東京の私立大学として、出場種目や決勝進出の推移を見比べたいときに）<!-- index-lane-link -->
 - [埼玉大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-saitama-u/index.html)（同じ関東の大学として、埼玉大学ボート部のインカレ出場の推移を見比べたいときに）<!-- index-lane-link -->
+- [防衛大学校ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-boueidaigakkou/index.html)（関東の大学として、出場種目や決勝進出の推移を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2008年度 全日本大学ローイング選手権 結果](../../years/2008/index.html)
 - [2007年度 全日本大学ローイング選手権 結果](../../years/2007/index.html)

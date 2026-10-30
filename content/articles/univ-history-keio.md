@@ -264,6 +264,7 @@ cta: sponsor
 - [早慶レガッタ観戦ガイド](../../articles/soukei-regatta-kengaku-guide/index.html)
 - [一橋大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hitotsubashi/index.html)
 - [明治大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-meiji/index.html)
+- [大阪工業大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-osaka-kogyo/index.html)（私立大学の工学系として、出場種目や決勝進出の傾向を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2020年度 全日本大学ローイング選手権 結果](../../years/2020/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
