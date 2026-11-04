@@ -269,6 +269,7 @@ cta: sponsor
 - [2020年度 全日本大学ローイング選手権 結果](../../years/2020/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
 - [学習院大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-gakushuin/index.html)（同じ東京の私立大学として、出場種目や決勝進出の傾向を見比べたいときに）<!-- index-lane-link -->
+- [早稲田大学理工学部ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-wasedadaigaku-rikougakubu/index.html)（早稲田の理工系学部として、出場史や最高成績を慶應と見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 

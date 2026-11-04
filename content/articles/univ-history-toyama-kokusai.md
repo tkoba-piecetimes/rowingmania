@@ -240,6 +240,7 @@ cta: sponsor
 - [大学ボート部は減っている？インカレ出場校数25年の推移](../../articles/daigaku-boat-bu-shutsujo-kosu-suii/index.html)
 - [大学ボート部の強豪大学はどこ？インカレボート通算優勝回数ランキング](../../articles/incare-boat-yusho-ranking/index.html)
 - [静岡大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shizuoka-u/index.html)（同じ中部地方の大学として、静岡大学ボート部の出場史や最高成績を比べたいときに）<!-- index-lane-link -->
+- [愛知教育大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-aichi-kyouiku/index.html)（同じ中部地方の大学として、愛知教育大学ボート部の出場史や最高成績を比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
 
