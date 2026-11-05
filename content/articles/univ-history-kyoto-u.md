@@ -268,6 +268,7 @@ cta: sponsor
 - [法政大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hosei/index.html)
 - [東京経済大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-tokyo-keizai/index.html)
 - [富山国際大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-toyama-kokusai/index.html)
+- [佐賀大学医学部ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-sagadaigaku-igakubu/index.html)（同じ国立大学として、佐賀大学医学部ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [大学ボート部は減っている？インカレ出場校数25年の推移](../../articles/daigaku-boat-bu-shutsujo-kosu-suii/index.html)
 - [大学ボート部の強豪大学はどこ？インカレボート通算優勝回数ランキング](../../articles/incare-boat-yusho-ranking/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)

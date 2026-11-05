@@ -251,6 +251,7 @@ cta: sponsor
 - [大学ボート部の強豪大学はどこ？インカレボート通算優勝回数ランキング](../../articles/incare-boat-yusho-ranking/index.html)
 - [甲南大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-konan/index.html)（同じ私立大学として、甲南大学ボート部のインカレ出場と決勝進出の推移を見比べたいときに）<!-- index-lane-link -->
 - [東京商船大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-toukyou-shousen/index.html)（同じ東京の大学として、東京商船大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [首都大学東京ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shuto-daigaku-toukyou/index.html)（同じ東京の公立系の大学として、首都大学東京ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)
 - [2019年度 全日本大学ローイング選手権 結果](../../years/2019/index.html)
