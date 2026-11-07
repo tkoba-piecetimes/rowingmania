@@ -117,6 +117,7 @@ cta: sponsor
 - [埼玉大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-saitama-u/index.html)（同じ関東の大学として、埼玉大学ボート部のインカレ出場の推移を見比べたいときに）<!-- index-lane-link -->
 - [防衛大学校ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-boueidaigakkou/index.html)（関東の大学として、出場種目や決勝進出の推移を見比べたいときに）<!-- index-lane-link -->
 - [岐阜協立大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-gifu-kyouritsu/index.html)（同じ私立大学として、岐阜協立大学ボート部の出場史や決勝進出の傾向を見比べたいときに）<!-- index-lane-link -->
+- [兵庫大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hyogo-u/index.html)（同じ私立大学として、兵庫大学ボート部の出場史や決勝進出の傾向を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2008年度 全日本大学ローイング選手権 結果](../../years/2008/index.html)
 - [2007年度 全日本大学ローイング選手権 結果](../../years/2007/index.html)

@@ -246,6 +246,7 @@ cta: sponsor
 - [福島県立医科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-fukushima-kenritsu-ika/index.html)（大規模な強豪校とは対照的な、医科大学の出場史を見比べたいときに）<!-- index-lane-link -->
 - [滋賀医科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shiga-ika/index.html)（同じく医科大学のボート部として、滋賀医科大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [愛知工業大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-aichi-kougyou/index.html)（中部の私立大学として、愛知工業大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [大同工業大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-daidou-kougyou/index.html)（大規模な強豪校とは対照的な、工業大学の出場史を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
 
