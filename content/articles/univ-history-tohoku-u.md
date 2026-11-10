@@ -234,6 +234,7 @@ cta: sponsor
 - [滋賀医科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shiga-ika/index.html)（同じ国立大学として、滋賀医科大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [山梨大学医学部ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-yamanashidaigaku-igakubu/index.html)（同じ国立大学として、山梨大学医学部ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [徳島大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-toku-shima/index.html)（四国の国立大学として、徳島大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [石巻専修大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-ishinomaki-senshuu/index.html)（同じ東北の大学として、石巻専修大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2023年度 全日本大学ローイング選手権 結果](../../years/2023/index.html)
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)

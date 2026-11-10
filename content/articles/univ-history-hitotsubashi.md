@@ -310,6 +310,7 @@ cta: sponsor
 - [首都大学東京ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shuto-daigaku-toukyou/index.html)（同じ東京の公的な大学として、首都大学東京ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [山梨大学医学部ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-yamanashidaigaku-igakubu/index.html)（同じ国立大学として、山梨大学医学部ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 - [松江工業高等専門学校ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-matsue-kougyoukoutousenmongakkou/index.html)（同じ国立の教育機関として、松江工業高等専門学校ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [杏林大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-kyourin/index.html)（同じ東京の大学として、杏林大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 
