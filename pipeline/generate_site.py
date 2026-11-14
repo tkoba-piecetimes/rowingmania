@@ -1056,14 +1056,27 @@ def build_universities_index(universities, meta):
         f'<td>{u["championships"]}</td><td>{u["final_appearances"]}</td>'
         f'<td>{len(u["years_active"])}</td></tr>'
         for u in ranked)
-    body = ('<h1>大学一覧</h1>'
+    years_all = sorted({y for u in universities.values() for y in u["years_active"]})
+    n_champ = sum(1 for u in universities.values() if u["championships"] > 0)
+    n_final = sum(1 for u in universities.values() if u["final_appearances"] > 0)
+    top3 = "、".join(f'{escape(u["name"])}（{u["championships"]}回）' for u in ranked[:3])
+    intro = (
+        f'<p>この一覧は、全日本大学ローイング選手権（インカレ）に{years_all[0]}〜{years_all[-1]}年度のあいだに出場した大学{len(universities)}校を、'
+        '優勝回数の多い順に並べたものです。ボート部のある大学すべての名簿ではなく、インカレに出漕した大学の一覧です。'
+        f'優勝経験があるのは{n_champ}校、決勝まで進んだ大学は{n_final}校で、優勝回数の上位は{top3}です（優勝は各種目の決勝A・1位の延べ回数）。</p>'
+        '<p>表の大学名から、年度ごとの出場種目・到達ラウンド・最高成績を確認できます。'
+        '強豪の顔ぶれは<a href="../articles/incare-boat-yusho-ranking/index.html">インカレボートの優勝回数ランキング</a>、'
+        '地区ごとの勢力図は<a href="../articles/daigaku-boat-bu-kyougoko-chikubetsu/index.html">大学ボート部 強豪校 地区別まとめ</a>、'
+        '入部先選びの考え方は<a href="../articles/boat-bukatsu-daigaku-erabikata/index.html">大学のボート部の選び方</a>で解説しています。</p>')
+    body = ('<h1>大学ボート部一覧（インカレ出場校）</h1>'
             f'<p class="lead">全日本大学ローイング選手権に出場した大学（延べ{len(universities)}校）。優勝回数の多い順に表示。</p>'
+            + intro +
             '<div class="tbl"><table><thead><tr><th>大学</th><th>優勝回数</th><th>決勝進出回数</th>'
             '<th>出場年度数</th></tr></thead>'
             f'<tbody>{rows}</tbody></table></div>')
-    write_page("universities", page(rel, f"大学一覧 | {SITE_NAME}", body, meta,
+    write_page("universities", page(rel, f"大学ボート部一覧｜インカレ出場{len(universities)}校を優勝回数順に掲載 | {SITE_NAME}", body, meta,
                                     path="universities/",
-                                    desc="全日本大学ローイング選手権に出場した大学の一覧。優勝回数・決勝進出回数付き。"))
+                                    desc=f"大学ボート部の一覧。全日本大学ローイング選手権（インカレ）に出場した{len(universities)}校を優勝回数・決勝進出回数順に掲載。大学ごとの年度別戦績、強豪校ランキングへのリンク付き。"))
 
 
 def build_support_block():
