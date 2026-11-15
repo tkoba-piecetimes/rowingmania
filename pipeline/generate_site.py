@@ -50,7 +50,7 @@ SHUKATSU_URL = "https://shukatsu.tunakare.jp/?utm_source=rowingmania&utm_medium=
 GAKUCHIKA_URL = "https://shukatsu.tunakare.jp/download/gakuchika-template?utm_source=rowingmania&utm_medium=referral&utm_campaign=gakuchika-template"  # 2026-09-09決定: 学生向け主導線を競技別ガクチカ資料DLに変更
 CAREER_URL = "https://career.tunakare.jp/?utm_source=rowingmania&utm_medium=referral&utm_campaign=career"
 BIZ_GUIDE_URL = "https://career.tunakare.jp/biz/guide?utm_source=rowingmania&utm_medium=referral&utm_campaign=biz-guide"
-INTERN_URL = "https://intern.tunakare.jp/assessment?utm_source=rowingmania&utm_medium=cta&utm_campaign=intern"  # ツナカレインターン16タイプ診断（学生集客戦略v2 §4 チャネル2・2026-09-12）
+SHUKATSU_BAND_URL = "https://shukatsu.tunakare.jp/register?utm_source=rowingmania&utm_medium=cta&utm_campaign=shukatsu_band"  # 就活相談の登録（記事末尾・チームページ末尾の帯）
 
 # ---- お問い合わせ（中立リレーAPI経由・運営元秘匿。メディアSNS統合要件定義_2026-08 §3-1）
 CONTACT_MEDIA_KEY = "rowing"
@@ -632,20 +632,18 @@ def build_article_cta_band(a):
     return ""
 
 
-def intern_cta_band():
-    """記事末尾に常時1つ表示する、ツナカレインターン16タイプ診断への導線CTA帯。
-    build_article_cta_band()（記事frontmatterのcta:に応じた既存CTA）とは独立・常時表示で、その直後に置く。
-    学生集客の戦略設計v2（tsunakare-intern/docs/business/27_student-acquisition-v2.md）
-    §4 チャネル2（部活メディア）・§5 メッセージ体系（S2低学年向け）2026-09-12。
-    左の縦線装飾（article-cta h2のborder-left）は使わず、紺地の帯で視覚的に区別する。
+def shukatsu_cta_band(position="shukatsu_cta_band"):
+    """記事末尾・チームページ末尾に出す、就活相談の登録への導線CTA帯（紺地・白文字）。
+    記事ではarticle CTAの直後に常時1つ、チームページでは既存CTA群の後に1つ置く。
+    2026-11-15決定: 記事末尾とチームページ末尾の帯は就活相談の登録
     """
-    heading = "オフシーズン・引退後に、長期インターンという選択"
-    sub = "部活で培った力を実務で試す。16タイプ診断（30秒）で合う企業がわかります。"
-    return (f'<section class="intern-cta-band" data-cta="cv_intern_click" data-position="intern_cta_band">'
+    heading = "部活を続けながら、就活も進めたい方へ"
+    sub = "体育会の学生のための就活相談です。無料で、メールアドレス・学年・所属の入力だけで始められます。"
+    return (f'<section class="shukatsu-cta-band" data-cta="cv_shukatsu_click" data-position="{position}">'
             '<span class="pr-tag pr-tag-light">PR</span>'
-            f'<p class="intern-cta-band-text"><strong>{escape(heading)}</strong><br>{escape(sub)}</p>'
-            f'<a class="cta" href="{escape(INTERN_URL)}" rel="noopener" '
-            'onclick="window.gtag&&gtag(\'event\',\'cv_intern_click\')">16タイプ診断を受ける →</a></section>')
+            f'<p class="shukatsu-cta-band-text"><strong>{escape(heading)}</strong><br>{escape(sub)}</p>'
+            f'<a class="cta" href="{escape(SHUKATSU_BAND_URL)}" rel="noopener" '
+            'onclick="window.gtag&&gtag(\'event\',\'cv_shukatsu_click\')">無料で就活相談を始める →</a></section>')
 
 
 def build_articles(articles, meta):
@@ -681,7 +679,7 @@ def build_articles(articles, meta):
         if 'class="term"' in art_html:
             body += TERM_TIP_SCRIPT
         body += build_article_cta_band(a)
-        body += intern_cta_band()
+        body += shukatsu_cta_band()
         body += f'<section><h2>あわせて読む</h2><ul>{related}</ul></section>'
         write_page(f"articles/{a['slug']}",
                    page(rel, f'{a["title"]} | {SITE_NAME}', body, meta,
@@ -1147,6 +1145,7 @@ def build_university_page(u, meta):
     body += contact_cta(rel, "team")
     body += contact_feature_cta(rel)
     body += build_support_block()
+    body += shukatsu_cta_band("shukatsu_cta_band_team")
 
     write_page(f"universities/{u['slug']}",
                page(rel, f'{name} 全日本大学ローイング選手権 出場記録 | {SITE_NAME}', body, meta,
@@ -1365,9 +1364,9 @@ table.detail td { white-space:normal; }
 .pr-tag { display:inline-block; background:var(--navy); color:#fff; font-size:.62rem;
   font-weight:800; letter-spacing:.05em; padding:.15em .5em; border-radius:4px;
   vertical-align:middle; margin-right:.55em; }
-.intern-cta-band { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1.2rem;
+.shukatsu-cta-band { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1.2rem;
   background:var(--navy); border-radius:12px; padding:1.1rem 1.3rem; margin-top:1.6rem; }
-.intern-cta-band-text { margin:0; font-size:.85rem; flex:1 1 220px; color:#fff; }
+.shukatsu-cta-band-text { margin:0; font-size:.85rem; flex:1 1 220px; color:#fff; }
 .pr-tag-light { background:var(--accent); color:var(--navy); }
 .support-section { margin-top:2.4em; }
 

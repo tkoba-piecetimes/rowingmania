@@ -77,7 +77,7 @@ class BuildArticle(unittest.TestCase):
                 st.enter_context(patch.object(g,'write_page',fake_write))
                 st.enter_context(patch.object(g,'load_glossary_terms',lambda:terms))
                 st.enter_context(patch.object(g,'page',lambda rel,title,body,meta,**k:body))
-                for name in ('cta_band','article_cta_band','build_article_cta_band','intern_cta_band'):
+                for name in ('cta_band','article_cta_band','build_article_cta_band','shukatsu_cta_band'):
                     if hasattr(g,name): st.enter_context(patch.object(g,name,lambda *a,**k:''))
                 if hasattr(g,'sticky_bar'): st.enter_context(patch.object(g,'sticky_bar',lambda:''))
                 g.build_articles([article],{})
