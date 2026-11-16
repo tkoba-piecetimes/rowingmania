@@ -1,0 +1,11 @@
+{"factors":[
+{"factor":"検索意図の一致","layer":"article","finding":"大学別のインカレ通算成績という意図に一致。順位9.2・CTRは同類平均超で大きな乖離なし","action":"維持"},
+{"factor":"タイトル・スニペット(CTR)","layer":"article","finding":"CTR 7.1%で同類平均2.8%を上回る","action":"変更しない"},
+{"factor":"網羅性・情報量","layer":"article","finding":"表と種目別本数のみで、傾向の解釈とラウンド名の説明が無かった","action":"表から集計した出場史の特徴節とラウンドの読み方を追加"},
+{"factor":"独自性(E-E-A-T)","layer":"article","finding":"JARA公式結果の集計という独自データは有り。解釈が薄かった","action":"決勝A到達の時期別・種目別の偏りなど表由来の分析を追加"},
+{"factor":"構成・読みやすさ","layer":"article","finding":"長い表が先頭に来て傾向が読みにくい","action":"表の前に特徴節を配置"},
+{"factor":"内部リンク・トピック構造","layer":"article","finding":"年度ページへのリンクが一部年度のみ","action":"2024年度結果へのリンクを追加"},
+{"factor":"ドメイン評価・被リンク","layer":"media","finding":"表示14回と母数が小さく、サイト全体の評価に依存","action":"記事単体では不可（媒体横断の被リンク・露出施策）"},
+{"factor":"技術・表示","layer":"article","finding":"問題の兆候なし","action":"変更なし"},
+{"factor":"CV","layer":"media","finding":"データ記事でCTAはsponsor。導線設計は媒体共通","action":"記事単体では不可"}
+],"summary":"CTRは同類平均を上回り、主因は低い表示回数（需要が小さい指名系KW）。表由来の傾向分析とラウンドの読み方を追加し、情報量と独自性を補強した。"}
