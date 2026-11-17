@@ -1,0 +1,59 @@
+{
+  "factors": [
+    {
+      "factor": "検索意図の一致",
+      "layer": "article",
+      "finding": "解説型で上位（報道・体育会就活解説）と同型。ただし『どこに進むか』への答えが体育会一般論のみで、ボート部の進路パターン（一般就職／競技継続／大学院・公務員・教員）が整理されていない。専用記事はSERPに見当たらない。",
+      "action": "意図は変えず、冒頭3行で進路パターンを先に答え、H2『主な進路のパターン』に表を追加する。"
+    },
+    {
+      "factor": "タイトル・スニペット（CTR）",
+      "layer": "article",
+      "finding": "CTR15.2%で同順位帯平均3.4%を大きく上回る（表示33件と母数は小さい）。",
+      "action": "タイトルは変更しない。descriptionは進路パターンに触れる程度の微修正のみ可。"
+    },
+    {
+      "factor": "網羅性・情報量",
+      "layer": "article",
+      "finding": "競技継続（社会人クルー・全日本社会人ローイング選手権）、大学院進学、公務員・教員、FAQが無い。",
+      "action": "H2『主な進路のパターン』（表）とFAQ3問を追加。競技継続はdaigaku-daihyo-kokutaiへ誘導。"
+    },
+    {
+      "factor": "独自性（一次情報・E-E-A-T）",
+      "layer": "article",
+      "finding": "業界傾向『各社調査で商社・金融・不動産・人材が上位』に具体的出典が無い（:26）。合宿生活の評価（:16-18）は日刊ゲンダイ2018-05-22記事と同論点だが出典なし。ボート部固有の進路データは媒体も持っていない。",
+      "action": "記事: 日刊ゲンダイ・プレジデント・現代ビジネスを出典に書き直し、出典の無い業界順位の言い切りを弱める。媒体: 部活単位の進路公表情報の収集計画をバックログへ。"
+    },
+    {
+      "factor": "構成・読みやすさ",
+      "layer": "article",
+      "finding": "冒頭に結論が無く表も無い。締めのH3 2本がob-tekishoku（:36,:40）とほぼ同じ見出し・論点。",
+      "action": "冒頭を結論先出しに短縮、進路パターン表を追加、重複H3 2本を差し替える。"
+    },
+    {
+      "factor": "内部リンク・トピック構造",
+      "layer": "media",
+      "finding": "被リンクはintai-jiki-intai-shiaiとob-keizokuryoku-careerの2本のみ。OB/キャリア系17本でob-tekishoku・ob-careerと役割が重なり、ob-tekishokuとのカニバリが大きい（taiikukai-boat-shukatsuとは意図が別で軽度）。",
+      "action": "記事: taiikukai-boat-shukatsu・ob-tekishoku・ob-career・shukatsu-scheduleから本記事へリンクを追加。媒体: OB系クラスタの役割分担（どこへ／向き不向き／伝え方）を定義。ob-tekishokuとの統合は2〜4週後のGSC確認後に検討（今回は実施しない）。"
+    },
+    {
+      "factor": "ドメイン評価・被リンク",
+      "layer": "media",
+      "finding": "新しい媒体で外部被リンクは未確認。記事単体では対応できない。",
+      "action": "媒体戦略バックログへ（大学・OB会への掲載依頼、データ記事の被引用狙い）。"
+    },
+    {
+      "factor": "技術・表示",
+      "layer": "media",
+      "finding": "記事側の不備は見当たらない。canonical・構造化データの出力は未確認。",
+      "action": "テンプレ側でFAQ構造化データ（FAQPage）の出力可否を確認。"
+    },
+    {
+      "factor": "CV（事業価値）",
+      "layer": "article",
+      "finding": "cta: career（中途向け）だが、主な読者は進路を考える現役部員と推定（GA4未確認）。",
+      "action": "cta を shukatsu に変更を検討（taiikukai-boat-shukatsu・shukatsu-scheduleと同じ）。ツナカレの実績数値は追加しない。"
+    }
+  ],
+  "summary": "主因は独自性（出典の無い業界傾向・ボート部固有情報の欠如）と、ob-tekishokuとの見出し・論点の重複。CTRは平均の約4.5倍のためタイトルは維持。記事では結論先出し・進路パターン表・FAQ・出典明記・重複H3差し替え・被リンク追加・CTA見直しを行う。ドメイン評価・クラスタ設計・部活単位の進路データ収集・FAQ構造化データは媒体側。検索意図の変更なし。統合は実施せず、ob-tekishokuとの統合を2〜4週後のGSC確認後の検討候補として明記。"
+}
