@@ -43,6 +43,7 @@ cta: sponsor
 - [2020年度 全日本大学ローイング選手権 結果](../../years/2020/index.html)
 - [2019年度 全日本大学ローイング選手権 結果](../../years/2019/index.html)
 - [2006年度 全日本大学ローイング選手権 結果](../../years/2006/index.html)
+- [広島工業大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-hiroshima-kougyou/index.html)（同じ中国地方の工業系校として、広島工業大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 

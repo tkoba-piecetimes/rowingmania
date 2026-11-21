@@ -98,6 +98,7 @@ cta: sponsor
 - [大阪府立大学の大学別戦績ページ](../../universities/osaka-pu/index.html)
 - [2020年度 全日本大学ローイング選手権 結果](../../years/2020/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
+- [大阪歯科大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-oosaka-shika/index.html)（同じ大阪の大学として、大阪歯科大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 
