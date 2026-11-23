@@ -1,0 +1,16 @@
+{
+  "factors": [
+    {"factor": "検索意図の一致", "layer": "article", "finding": "上位は大学公式の大会告知・部紹介・年間計画PDFで、入部検討者向けに1年の流れを解説する型と一致。意図ずれなし。", "action": "型は維持。冒頭に結論（1年の流れ）を先出し。"},
+    {"factor": "タイトル・スニペット(CTR)", "layer": "article", "finding": "表示10・クリック0（順位5.1）。母数が小さく判断材料は弱いが、タイトルに『月別』や大会名がなく、上位の年間計画系と比べて一覧性が伝わりにくい。", "action": "タイトルを『年間スケジュール｜新歓・合宿・インカレ・新人戦の時期を月別に解説』へ、descriptionに2026年度日程とJARA出典を明記。"},
+    {"factor": "網羅性・情報量", "layer": "article", "finding": "6月の全日本ローイング選手権、地区学生選手権、月別一覧表、FAQが欠けていた。", "action": "JARA 2026年度大会情報に基づく月別表、全日本選手権・地区学生選手権の節、FAQ4問を追加。"},
+    {"factor": "独自性(E-E-A-T)", "layer": "article", "finding": "大会日程以外は一般論中心。docs/primary-sources/ が作業コピーに無く一次情報の声は使えない。", "action": "2026年の実開催日（早慶レガッタ4/19・全日本6/4-7・新人戦10/23-25）を公式出典付きで追記。"},
+    {"factor": "独自性(E-E-A-T)", "layer": "media", "finding": "ローイングマニアに一次情報バンク（部員・OBの声）が無く、年間スケジュール系記事に実例を入れられない。", "action": "docs/primary-sources/ の整備（取材記事からの匿名化した声の収集）を媒体バックログへ。"},
+    {"factor": "構成・読みやすさ", "layer": "article", "finding": "季節別の見出しのみで、一目で年間を把握できる表がなかった。", "action": "冒頭直後に月別の一覧表を配置。"},
+    {"factor": "内部リンク・トピック構造", "layer": "article", "finding": "合宿・冬季トレーニング・体験入部・全日本選手権・戸田・両立・就活の関連記事へのリンクがなかった。", "action": "実在slug8本（taiken-nyubu-guide, zennihon-rowing-senshuken-kengaku-guide, gasshuku-naiyo, toda-boat-course-kengaku-guide, winter-training, gakugyo-ryoritsu, shukatsu-schedule, chuto-nyubu）へリンク追加。"},
+    {"factor": "内部リンク・トピック構造", "layer": "media", "finding": "大会見学ガイド群・合宿・冬トレ記事から本記事（年間の親記事）への被リンクが未確認。", "action": "年間スケジュールを入部検討クラスタの親記事とし、関連記事から本記事へのリンクを張る設計を媒体バックログへ。"},
+    {"factor": "ドメイン評価・被リンク", "layer": "media", "finding": "上位は大学公式ドメイン（waseda.jp等）が多く、新規ドメインには不利。", "action": "大学ボート部・新歓情報への掲載依頼など被リンク施策を媒体側で検討。"},
+    {"factor": "技術・表示", "layer": "media", "finding": "記事側で確認できる技術的問題はなし。表示10件と少なくインデックス・評価が定まっていない可能性。", "action": "FAQ構造化データの媒体テンプレ対応可否を確認。"},
+    {"factor": "CV", "layer": "media", "finding": "cta: none でクリック0のためCV評価対象外。", "action": "入部検討者向け記事のCV導線（cta設定方針）を媒体側で整理。"}
+  ],
+  "summary": "検索意図は一致しており、主因は網羅性（6月の全日本選手権・月別表・FAQの欠落）とタイトルの一覧性不足。2026年度の公式日程に基づく月別表・節・FAQと内部リンク8本を追加し、タイトルとdescriptionを月別解説型に改めた。一次情報バンク・クラスタ設計・被リンク・FAQ構造化データ・CV導線は媒体層で対応する。"
+}
