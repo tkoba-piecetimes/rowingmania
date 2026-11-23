@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry1.outputs.page_url || steps.deployment_retry2.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,6 +51,27 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+      # アップロード直後は公開用ファイルが一覧にまだ出ないことがあり、
+      # その瞬間に当たるとデプロイが「No artifacts named github-pages」で落ちる。
+      # 少し待ってからデプロイし、落ちたら間隔を空けて2回までやり直す。
+      - name: Wait for the uploaded artifact to be listed
+        run: sleep 15
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Wait before retry 1
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 45
+      - name: Deploy to GitHub Pages (retry 1)
+        id: deployment_retry1
+        if: steps.deployment.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Wait before retry 2
+        if: steps.deployment_retry1.outcome == 'failure'
+        run: sleep 120
+      - name: Deploy to GitHub Pages (retry 2)
+        id: deployment_retry2
+        if: steps.deployment_retry1.outcome == 'failure'
         uses: actions/deploy-pages@v4
