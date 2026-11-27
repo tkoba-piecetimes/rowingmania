@@ -96,6 +96,7 @@ cta: sponsor
 - [九州大学の大学別戦績ページ](../../universities/kyushu-u/index.html)
 - [2025年度 全日本大学ローイング選手権 結果](../../years/2025/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
+- [長崎大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-nagasaki/index.html)（同じ九州の大学として、長崎大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 

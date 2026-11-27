@@ -42,6 +42,7 @@ cta: sponsor
 - [2008年度 全日本大学ローイング選手権 結果](../../years/2008/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
 - [静岡産業大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-shizuoka-sangyou/index.html)（同じ東海地方の大学として、静岡産業大学ボート部の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
+- [大同大学ボート部のインカレ全記録｜出場史と最高成績](../../articles/univ-history-daidou/index.html)（大同工業大学から校名変更後の大同大学ボート部の出場史や最高成績を続けて確認したいときに）<!-- index-lane-link -->
 
 ## 出典
 
