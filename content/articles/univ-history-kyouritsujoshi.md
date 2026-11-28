@@ -58,6 +58,7 @@ cta: sponsor
 - [2022年度 全日本大学ローイング選手権 結果](../../years/2022/index.html)
 - [2002年度 全日本大学ローイング選手権 結果](../../years/2002/index.html)
 - [2000年度 全日本大学ローイング選手権 結果](../../years/2000/index.html)
+- [同志社女子大学ボート部のインカレ全記録](../../articles/univ-history-doushisha-joshi/index.html)（同じ女子大学として、同志社女子大学の出場史や最高成績を見比べたいときに）<!-- index-lane-link -->
 
 ## 出典
 
